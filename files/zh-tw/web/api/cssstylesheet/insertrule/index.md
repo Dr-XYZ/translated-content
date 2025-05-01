@@ -1,6 +1,8 @@
 ---
 title: CSSStyleSheet：insertRule() 方法
 slug: Web/API/CSSStyleSheet/insertRule
+l10n:
+  sourceCommit: fb311d7305937497570966f015d8cc0eb1a0c29c
 ---
 
 {{APIRef("CSSOM")}}
