@@ -5,7 +5,7 @@ slug: Web/API/CSSStyleSheet/insertRule
 
 {{APIRef("CSSOM")}}
 
-**`CSSStyleSheet.insertRule()`** 方法會將新的 [CSS 規則](/zh-TW/docs/Web/API/CSSRule) 插入到[目前的樣式表](/zh-TW/docs/Web/API/CSSStyleSheet)中。
+**`CSSStyleSheet.insertRule()`** 方法會將新的 [CSS 規則](/zh-TW/docs/Web/API/CSSRule)插入到[目前的樣式表](/zh-TW/docs/Web/API/CSSStyleSheet)中。
 
 > [!NOTE]
 > 雖然 `insertRule()` 是 {{domxref("CSSStyleSheet")}} 專屬的方法，但實際上它是將規則插入至 `{{domxref("CSSStyleSheet", "", "", "1")}}.cssRules` 中——其內部的 {{domxref("CSSRuleList")}}。
@@ -24,10 +24,10 @@ insertRule(rule, index)
   - : 包含要插入規則的字串。插入規則的內容需視其類型而定：
 
     - **針對 [rule-sets](/zh-TW/docs/Web/CSS/CSS_syntax/Syntax#css_statements)**，需包含[選擇器](/zh-TW/docs/Learn_web_development/Core/Styling_basics/Basic_selectors)及樣式宣告。
-    - **針對 [at-rules](/zh-TW/docs/Web/CSS/CSS_syntax/At-rule)**，需包含 at-識別子與規則內容。
+    - **針對 [at-rules](/zh-TW/docs/Web/CSS/CSS_syntax/At-rule)**，需包含 at-識別符與規則內容。
 
 - `index` {{optional_inline}}
-  - : 一個大於等於 0 且小於等於 `stylesheet.cssRules.length` 的正整數，表示新插入規則在 `{{domxref("CSSStyleSheet", "", "", "1")}}.cssRules` 中的位置。預設值為 `0`。（在舊版實作中此參數為必要。詳見[瀏覽器相容性](#browser_compatibility)。）
+  - : 一個大於等於 0 且小於等於 `stylesheet.cssRules.length` 的正整數，表示新插入規則在 `{{domxref("CSSStyleSheet", "", "", "1")}}.cssRules` 中的位置。預設值為 `0`。（在舊版實作中此參數為必要。參見[瀏覽器相容性](#瀏覽器相容性)。）
 
 ### 回傳值
 
@@ -36,15 +36,15 @@ insertRule(rule, index)
 ### 例外狀況
 
 - `IndexSizeError` {{domxref("DOMException")}}
-  - : 若 `index` 大於 `{{domxref("CSSRuleList", "", "", "1")}}.length`，則會擲出此錯誤。
+  - : 若 `index` 大於 `{{domxref("CSSRuleList", "", "", "1")}}.length`，則會拋出此錯誤。
 - `HierarchyRequestError` {{domxref("DOMException")}}
-  - :若因某些 CSS 限制而無法在索引 0 插入 `rule`，則會擲出此錯誤。
+  - : 若因某些 CSS 限制而無法在索引 0 插入 `rule`，則會拋出此錯誤。
 - `SyntaxError` {{domxref("DOMException")}}
-  - :若 `rule` 參數中包含超過一個規則，則會擲出此錯誤。
+  - : 若 `rule` 參數中包含超過一個規則，則會拋出此錯誤。
 - `HierarchyRequestError` {{domxref("DOMException")}}
-  - : 若嘗試在樣式規則之後插入 {{cssxref("@import")}} at-rule，則會擲出此錯誤。
+  - : 若嘗試在樣式規則之後插入 {{cssxref("@import")}} at-規則，則會拋出此錯誤。
 - `InvalidStateError` {{domxref("DOMException")}}
-  - : 若 `rule` 為 {{cssxref("@namespace")}}，且規則清單中已有不只 `@import` 或 `@namespace` 的 at-rule，則會擲出此錯誤。
+  - : 若 `rule` 為 {{cssxref("@namespace")}}，且規則清單中已有不只 `@import` 或 `@namespace` 的 at-規則，則會拋出此錯誤。
 
 ## 範例
 
@@ -62,7 +62,7 @@ myStyle.insertRule("#blanc { color: white }", 0);
 /**
  * 將樣式表規則加入文件中（建議最佳做法是動態變更 class，
  * 如此一來樣式資訊可以保留在正規樣式表中，避免將額外元素加入 DOM）。
- * 注意：由於 ECMAScript 不保證物件的屬性順序可預期，
+ * 注意由於 ECMAScript 不保證物件的屬性順序可預期，
  * 且 CSS 對順序有依賴，因此此處使用陣列來表示宣告與規則。
  * @param {Array} rules 接受一個以 JSON 編碼的宣告陣列
  * @example
@@ -121,4 +121,4 @@ function addStylesheetRules(rules) {
 ## 參見
 
 - {{domxref("CSSStyleSheet.deleteRule")}}
-- [Constructable Stylesheets](https://web.dev/articles/constructable-stylesheets)（web.dev）
+- [可構造樣式表](https://web.dev/articles/constructable-stylesheets)（web.dev）
