@@ -1,50 +1,95 @@
 ---
 title: DocumentFragment
 slug: Web/API/DocumentFragment
+l10n:
+  sourceCommit: fd1081dbbecd338a3ea55b03c187b6a60500408f
 ---
 
-{{ ApiRef("DOM") }}
+{{ APIRef("DOM") }}
 
-**`DocumentFragment`** 介面表示了一個沒有父節點的最小化文件物件。`DocumentFragment` 被當作一種輕量化的 {{domxref("Document")}}，用如同標準文件一般的方式保存片段的文件結構（由節點組成）。關鍵的區別在於文件片段不是真實的 DOM 結構，文件片段的變動並不會影響目前的網頁文件，也不會導致回流（{{Glossary("reflow")}}）或引起任何影響效能的情況發生。
+**`DocumentFragment`** 介面表示一個沒有父節點的最小文件物件。
 
-一般的用法是建立一個 `DocumentFragment` 物件，在此物件中組織一個 DOM 的子樹。再使用 {{domxref("Node")}} 介面定義的方法，如 {{domxref("Node.appendChild", "appendChild()")}} 或 {{domxref("Node.insertBefore", "insertBefore()")}} 將這個文件片段加入或插入目前頁面的 DOM 當中。執行這個將文件片段中的節點置入 DOM 的動作之後，會留下一個空的 `DocumentFragment` 物件（只會插入物件中的節點，`DocumentFragment` 物件本身不會被插入）。由於文件片段中的所有節點是一次性的被插入目前頁面文件當中，故回流及頁面渲染只會被觸發一次，所以可用插入 `DocumentFragment` 物件的方式取代傳統分別插入多個節點至 DOM（將節點一個一個分次進行插入）的操作方式。
+它被用作 {{domxref("Document")}} 的輕量版本，儲存由節點組成的文件結構片段，就像標準文件一樣。主要的區別在於文件片段不屬於活動文件樹結構的一部分。對片段進行的更改不會影響文件。
 
-此介面也適合與 Web components 搭配使用：{{HTMLElement("template")}} 元素在其 {{domxref("HTMLTemplateElement.content")}} 屬性中便包含了一個 `DocumentFragment` 物件。
+{{InheritanceDiagram}}
 
-可使用 {{domxref("document.createDocumentFragment()")}} 方法或 `DocumentFragment` 的建構式來建立一個空的 `DocumentFragment` 物件。
+## 建構子
 
-## 屬性
+- {{ domxref("DocumentFragment.DocumentFragment()", "DocumentFragment()") }}
+  - : 建立並回傳一個新的 `DocumentFragment` 物件。
 
-_This interface has no specific properties, but inherits those of its parent,_ _{{domxref("Node")}}, and implements those of the {{domxref("ParentNode")}} interface._
+## 實例屬性
 
-- {{ domxref("ParentNode.children") }} {{readonlyInline}}{{experimental_inline}}
-  - : Returns a live {{domxref("HTMLCollection")}} containing all objects of type {{domxref("Element")}} that are children of the `DocumentFragment` object.
-- {{ domxref("ParentNode.firstElementChild") }} {{readonlyInline}}{{experimental_inline}}
-  - : Returns the {{domxref("Element")}} that is the first child of the `DocumentFragment` object, or `null` if there is none.
-- {{ domxref("ParentNode.lastElementChild") }} {{readonlyInline}}{{experimental_inline}}
-  - : Returns the {{domxref("Element")}} that is the last child of the `DocumentFragment` object, or `null` if there is none.
-- {{ domxref("ParentNode.childElementCount") }} {{readonlyInline}}{{experimental_inline}}
-  - : Returns an `unsigned long` giving the amount of children that the `DocumentFragment` has.
+_此介面沒有特定的屬性，但繼承自其父介面 {{domxref("Node")}} 的屬性。_
 
-## 建構式
+- {{ domxref("DocumentFragment.childElementCount") }} {{ReadOnlyInline}}
+  - : 回傳 `DocumentFragment` 擁有的子{{domxref("Element", "元素")}}的數量。
+- {{ domxref("DocumentFragment.children") }} {{ReadOnlyInline}}
+  - : 回傳一個動態的 {{domxref("HTMLCollection")}}，其中包含 `DocumentFragment` 物件的所有子 {{domxref("Element")}}。
+- {{ domxref("DocumentFragment.firstElementChild") }} {{ReadOnlyInline}}
+  - : 回傳 `DocumentFragment` 物件的第一個子 {{domxref("Element")}}，如果沒有則回傳 `null`。
+- {{ domxref("DocumentFragment.lastElementChild") }} {{ReadOnlyInline}}
+  - : 回傳 `DocumentFragment` 物件的最後一個子 {{domxref("Element")}}，如果沒有則回傳 `null`。
 
-- {{ domxref("DocumentFragment.DocumentFragment()", "DocumentFragment()") }} {{experimental_inline}}
-  - : Returns an empty `DocumentFragment` object.
+## 實例方法
 
-## 方法
+_此介面繼承自其父介面 {{domxref("Node")}} 的方法。_
 
-_This interface inherits the methods of its parent, {{domxref("Node")}}, and implements those of the {{domxref("ParentNode")}} interface._
-
-- {{domxref("DocumentFragment.find()")}} {{experimental_inline}}
-  - : Returns the first matching {{domxref("Element")}} in the tree of the `DocumentFragment`.
-- {{domxref("DocumentFragment.findAll()")}} {{experimental_inline}}
-  - : Returns a {{domxref("NodeList")}} of matching {{domxref("Element")}} in the tree of the `DocumentFragment`.
+- {{DOMxRef("DocumentFragment.append()")}}
+  - : 在文件片段的最後一個子節點後插入一組 {{domxref("Node")}} 物件或字串。
+- {{DOMxRef("DocumentFragment.prepend()")}}
+  - : 在文件片段的第一個子節點前插入一組 {{domxref("Node")}} 物件或字串。
 - {{domxref("DocumentFragment.querySelector()")}}
-  - : Returns the first {{domxref("Element")}} node within the `DocumentFragment`, in document order, that matches the specified selectors.
+  - : 回傳 `DocumentFragment` 中第一個符合指定選擇器的 {{domxref("Element")}} 節點（按文件順序）。
 - {{domxref("DocumentFragment.querySelectorAll()")}}
-  - : Returns a {{domxref("NodeList")}} of all the {{domxref("Element")}} nodes within the `DocumentFragment` that match the specified selectors.
+  - : 回傳一個 {{domxref("NodeList")}}，其中包含 `DocumentFragment` 中所有符合指定選擇器的 {{domxref("Element")}} 節點。
+- {{DOMxRef("DocumentFragment.moveBefore()")}} {{Experimental_Inline}}
+  - : 將指定的 {{domxref("Node")}} 移動到呼叫的 `DocumentFragment` 中作為直接子節點，並位於指定的參考節點之前，而不需要先移除再插入該節點。
+- {{DOMxRef("DocumentFragment.replaceChildren()")}}
+  - : 用指定的新子節點集合替換 `DocumentFragment` 的現有子節點。
 - {{domxref("DocumentFragment.getElementById()")}}
-  - : Returns the first {{domxref("Element")}} node within the `DocumentFragment`, in document order, that matches the specified ID.
+  - : 回傳 `DocumentFragment` 中第一個符合指定 ID 的 {{domxref("Element")}} 節點（按文件順序）。功能上等同於 {{domxref("Document.getElementById()")}}。
+
+## 使用注意事項
+
+`DocumentFragment` 的常見用途是建立一個片段，在其中組裝一個 DOM 子樹，然後使用 {{domxref("Node")}} 介面的方法（例如 {{domxref("Node.appendChild", "appendChild()")}}、{{domxref("Element.append", "append()")}} 或 {{domxref("Node.insertBefore", "insertBefore()")}}）將片段附加或插入到 DOM 中。這樣做會將片段的節點移動到 DOM 中，留下空的 `DocumentFragment`。
+
+此介面在 Web 元件中也非常有用：{{HTMLElement("template")}} 元素在其 {{domxref("HTMLTemplateElement.content")}} 屬性中包含一個 `DocumentFragment`。
+
+可以使用 {{domxref("document.createDocumentFragment()")}} 方法或建構子建立一個空的 `DocumentFragment`。
+
+## 效能
+
+`DocumentFragment` 的效能優勢通常被誇大。事實上，在某些引擎中，使用 `DocumentFragment` 比在迴圈中直接附加到文件更慢，如[此效能測試](https://jsbench.me/02l63eic9j/1)所示。然而，這些範例之間的差異非常微小，因此優化可讀性比效能更重要。
+
+## 範例
+
+### HTML
+
+```html
+<ul></ul>
+```
+
+### JavaScript
+
+```js
+const ul = document.querySelector("ul");
+const fruits = ["Apple", "Orange", "Banana", "Melon"];
+
+const fragment = new DocumentFragment();
+
+for (const fruit of fruits) {
+  const li = document.createElement("li");
+  li.textContent = fruit;
+  fragment.append(li);
+}
+
+ul.append(fragment);
+```
+
+### 結果
+
+{{EmbedLiveSample('範例')}}
 
 ## 規範
 
@@ -53,7 +98,3 @@ _This interface inherits the methods of its parent, {{domxref("Node")}}, and imp
 ## 瀏覽器相容性
 
 {{Compat}}
-
-## 參見
-
-- [The DOM interfaces index.](/docs/DOM/DOM_Reference)
