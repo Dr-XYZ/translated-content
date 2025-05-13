@@ -1,44 +1,50 @@
 ---
 title: ErrorEvent
 slug: Web/API/ErrorEvent
+page-type: web-api-interface
+browser-compat: api.ErrorEvent
 ---
 
-{{APIRef("HTML DOM")}}
+{{APIRef("HTML DOM")}}{{AvailableInWorkers}}
 
-**`ErrorEvent`** 介面是用來提供程式碼或是檔案的錯誤訊息的事件。
+**`ErrorEvent`** 介面代表與腳本或檔案中的錯誤相關的事件，並提供相關資訊。
 
-## Properties
+{{InheritanceDiagram}}
 
-_此介面繼承了其父 {{domxref("Event")}} 的 properties 。_
-
-- {{domxref("ErrorEvent.message")}} {{readonlyInline}}
-  - : 一 {{domxref("DOMString")}} 提供具可讀性的關於問題的錯誤訊息。
-- {{domxref("ErrorEvent.filename")}} {{readonlyInline}}
-  - : 一 {{domxref("DOMString")}} ，為發生錯誤的程式碼檔案的檔名。
-- {{domxref("ErrorEvent.lineno")}} {{readonlyInline}}
-  - : 一 `整數` ，為發生問題的程式的行數。
-- {{domxref("ErrorEvent.colno")}} {{readonlyInline}}
-  - : 一 `整數` ，為發生問題的程式的欄數。
-- {{domxref("ErrorEvent.error")}} {{readonlyInline}} {{experimental_inline}}
-  - : 一個參與該事件的 JavaScript `Object` 。
-
-## Constructor
+## 建構子
 
 - {{domxref("ErrorEvent.ErrorEvent", "ErrorEvent()")}}
-  - : 建立一 `ErrorEvent` 事件，其包含提供的參數。
+  - ：使用指定的參數建立一個 `ErrorEvent` 事件。
 
-## Methods
+## 實例屬性
 
-_此介面繼承了其父 {{domxref("Event")}} 的 methods。_
+_亦繼承其父層 {{domxref("Event")}} 的屬性。_
 
-## Specifications
+- {{domxref("ErrorEvent.message")}} {{ReadOnlyInline}}
+  - ：包含可讀性高的錯誤訊息的字串，用以描述問題。
+- {{domxref("ErrorEvent.filename")}} {{ReadOnlyInline}}
+  - ：包含發生錯誤的腳本檔案名稱的字串。
+- {{domxref("ErrorEvent.lineno")}} {{ReadOnlyInline}}
+  - ：整數，表示發生錯誤的腳本檔案行號。
+- {{domxref("ErrorEvent.colno")}} {{ReadOnlyInline}}
+  - ：整數，表示發生錯誤的腳本檔案欄位號。
+- {{domxref("ErrorEvent.error")}} {{ReadOnlyInline}}
+  - ：一個 JavaScript 值，例如 {{jsxref("Error")}} 或 {{domxref("DOMException")}}，代表與此事件相關的錯誤。
+
+## 實例方法
+
+_繼承自其父層 {{domxref("Event")}} 的方法。_
+
+## 規範
 
 {{Specifications}}
 
-## 瀏覽器支援度比較
+## 瀏覽器相容性
 
 {{Compat}}
 
-## 延伸閱讀
+## 參見
 
-- [Using web workers](/zh-TW/docs/Web/API/Web_Workers_API/Using_web_workers), most likely objects to raise such an event
+- [使用 Web Workers](/zh-TW/docs/Web/API/Web_Workers_API/Using_web_workers)：最可能觸發此類事件的物件。
+- {{domxref("Window")}}：{{domxref("Window/error_event", "error")}} 事件
+- {{domxref("Navigation")}}：{{domxref("Navigation/navigateerror_event", "navigateerror")}} 事件
