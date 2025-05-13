@@ -1,140 +1,153 @@
 ---
-title: Element.scrollHeight
+title: Element：scrollHeight 屬性
+short-title: scrollHeight
 slug: Web/API/Element/scrollHeight
+page-type: web-api-instance-property
+browser-compat: api.Element.scrollHeight
 ---
 
 {{APIRef("DOM")}}
 
-**`Element.scrollHeight`** 是衡量元素包含因為 overflow 而沒顯示在螢幕上的內容高度的唯讀屬性. `scrollHeight` 的值相等於元素要求 `clientHeight` 在視域中沒有使用滾動條顯示所有內容的最小高度值 . 這當中只包含 padding, 並不包含 margin.
+**`scrollHeight`** 是 {{domxref("Element")}} 介面的唯讀屬性，用來測量元素內容的總高度，即使有部分內容因為溢出而在畫面上不可見也會包含在內。
 
-> [!NOTE]
-> 這個屬性會以四捨五入進位取整數. 如果要使用非整數值, 使用 {{ domxref("Element.getBoundingClientRect()") }}.
+![使用者的檢視區是一個包含四個區塊（padding-top、border-top、border-bottom、padding-bottom）的元素。scrollHeight 從容器的 padding-top 開始，一直到 padding-bottom 結束，遠超過檢視區的上下邊界。](scrollheight.png)
 
-## 表達式
+`scrollHeight` 的值等於元素在不顯示垂直捲軸的情況下，完整容納其所有內容所需的最小高度。它的測量方式與 {{domxref("Element.clientHeight", "clientHeight")}} 相同：包含元素的內距（padding），但不包含邊框（border）、外距（margin）或（如果存在的話）水平捲軸。它也可能包含像 {{cssxref("::before")}} 或 {{cssxref("::after")}} 這類偽元素的高度。如果內容本身就能完全顯示，沒有捲動需求，則 `scrollHeight` 會等於 {{domxref("Element.clientHeight", "clientHeight")}}。
+
+## 值
+
+一個整數。
+
+## 問題與解法
+
+### 判斷元素是否已被完全捲動
+
+`scrollTop` 是非取整的數值，而 `scrollHeight` 和 `clientHeight` 是整數值 — 因此要判斷是否已捲到最底部，應比較它們是否在某個容許誤差內（例如這裡使用的 `1`）：
 
 ```js
-var intElemScrollHeight =
-  document.getElementById(id_attribute_value).scrollHeight;
+Math.abs(element.scrollHeight - element.clientHeight - element.scrollTop) <= 1;
 ```
 
-_intElemScrollHeight_ 是個儲存了元素 scrollHeight 的正整數變數. scrollHeight 是唯讀的屬性.
+以下寫法 _並不總是_ 正確，因為 `scrollTop` 可能包含小數：
+
+```js
+element.scrollHeight - Math.abs(element.scrollTop) === element.clientHeight;
+```
+
+### 判斷內容是否溢出元素邊界
+
+這個函式會回傳布林值，表示內容是否超出元素本身的可視高度：
+
+```js
+function isOverflowing(element) {
+  return element.scrollHeight > element.clientHeight;
+}
+```
+
+你也可以進一步確認元素是否實際具有可捲動性：
+
+```js
+function isScrollable(element) {
+  return (
+    isOverflowing(element) &&
+    ["scroll", "auto"].includes(window.getComputedStyle(element).overflowY)
+  );
+}
+```
 
 ## 範例
 
-padding-top
+### 確認使用者是否已閱讀完整段文字
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+這個範例配合 {{domxref("Element.scroll_event", "scroll")}} 事件，能用來確認使用者是否真的閱讀了整段內容（也請參考 {{domxref("element.scrollTop")}} 與 {{domxref("element.clientHeight")}} 屬性）。
 
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+下方範例中，核取方塊在未閱讀完畢前是無法勾選的；一旦閱讀完成，就可以勾選「我同意」，並啟用「下一步」按鈕。
 
-padding-bottom
-
-**Left** **Top** **Right** **Bottom** _margin-top_ _margin-bottom_ _border-top_ _border-bottom_
-
-![Image:scrollHeight.png](scrollheight.png)
-
-## 問題與解決方法
-
-### 了解元素是否被滾輪完全滾過
-
-下面的等式代表`如果元素被完全滾過將會`回傳 `true`, 否則回傳 `false`.
-
-```js
-element.scrollHeight - element.scrollTop === element.clientHeight;
-```
-
-## scrollHeight 範例
-
-藉由 [`onscroll`](/zh-TW/docs/Web/API/Element/scroll_event) 事件, 這個等式對於決定使用者是否已經讀完文字內容是很有用 (參見 [`element.scrollTop`](/zh-TW/docs/Web/API/Element/scrollTop), [`element.clientHeight`](/zh-TW/docs/Web/API/Element/clientHeight) 屬性). 範例:
-
-### HTML
+#### HTML
 
 ```html
-<form name="registration">
+<form id="form" name="registration">
+  <p id="info">閱讀完所有內容以啟用同意選項</p>
+  <div id="very-important-read">
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, ...
+    </p>
+    <p>
+      Sit amet volutpat consequat mauris nunc congue nisi vitae. ...
+    </p>
+    <p>
+      Cras adipiscing enim eu turpis egestas. ...
+    </p>
+    <p>
+      Fames ac turpis egestas sed tempus. ...
+    </p>
+  </div>
   <p>
-    <textarea id="rules">
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum at laoreet magna.
-Aliquam erat volutpat. Praesent molestie, dolor ut eleifend aliquam, mi ligula ultrices sapien, quis cursus
-neque dui nec risus. Duis tincidunt lobortis purus eu aliquet. Quisque in dignissim magna. Aenean ac lorem at
-velit ultrices consequat. Nulla luctus nisi ut libero cursus ultrices. Pellentesque nec dignissim enim. Phasellus
-ut quam lacus, sed ultricies diam. Vestibulum convallis rutrum dolor, sit amet egestas velit scelerisque id.
-Proin non dignissim nisl. Sed mi odio, ullamcorper eget mattis id, malesuada vitae libero. Integer dolor lorem,
-mattis sed dapibus a, faucibus id metus. Duis iaculis dictum pulvinar. In nisi nibh, dapibus ac blandit at, porta
-at arcu. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Praesent
-dictum ipsum aliquet erat eleifend sit amet sollicitudin felis tempus. Aliquam congue cursus venenatis. Maecenas
-luctus pellentesque placerat. Mauris nisl odio, condimentum sed fringilla a, consectetur id ligula. Praesent sem
-sem, aliquet non faucibus vitae, iaculis nec elit. Nullam volutpat, lectus et blandit bibendum, nulla lorem congue
-turpis, ac pretium tortor sem ut nibh. Donec vel mi in ligula hendrerit sagittis. Donec faucibus viverra fermentum.
-Fusce in arcu arcu. Nullam at dignissim massa. Cras nibh est, pretium sit amet faucibus eget, sollicitudin in
-ligula. Vivamus vitae urna mauris, eget euismod nunc. Aenean semper gravida enim non feugiat. In hac habitasse
-platea dictumst. Cras eleifend nisl volutpat ante condimentum convallis. Donec varius dolor malesuada erat
-consequat congue. Donec eu lacus ut sapien venenatis tincidunt. Quisque sit amet tellus et enim bibendum varius et
-a orci. Donec aliquet volutpat scelerisque. Proin et tortor dolor. Ut aliquet, dolor a mattis sodales, odio diam
-pulvinar sem, egestas pretium magna eros vitae felis. Nam vitae magna lectus, et ornare elit. Morbi feugiat, ipsum
-ac mattis congue, quam neque mollis tortor, nec mollis nisl dolor a tortor. Maecenas varius est sit amet elit
-interdum quis placerat metus posuere. Duis malesuada justo a diam vestibulum vel aliquam nisi ornare. Integer
-laoreet nisi a odio ornare non congue turpis eleifend. Cum sociis natoque penatibus et magnis dis parturient montes,
-nascetur ridiculus mus. Cras vulputate libero sed arcu iaculis nec lobortis orci fermentum.
-    </textarea>
-  </p>
-  <p>
-    <input type="checkbox" name="accept" id="agree" />
-    <label for="agree">I agree</label>
-    <input type="submit" id="nextstep" value="Next" />
+    <input type="checkbox" id="agree" name="accept" disabled />
+    <label for="agree">我同意</label>
+    <input type="submit" id="next-step" value="下一步" disabled />
   </p>
 </form>
 ```
 
-### CSS
+#### CSS
 
 ```css
-#notice {
+#info {
+  margin: 5px;
   display: inline-block;
-  margin-bottom: 12px;
-  border-radius: 5px;
-  width: 600px;
-  padding: 5px;
-  border: 2px #7fdf55 solid;
+  font-style: italic;
 }
 
-#rules {
-  width: 600px;
+#very-important-read {
   height: 130px;
   padding: 5px;
-  border: #2a9f00 solid 2px;
+  border: 2px solid #00b4c5;
   border-radius: 5px;
+  overflow: scroll;
 }
 ```
 
-### JavaScript
+#### JavaScript
 
 ```js
-function checkReading() {
-  if (checkReading.read) {
-    return;
-  }
-  checkReading.read = this.scrollHeight - this.scrollTop === this.clientHeight;
-  document.registration.accept.disabled = document.getElementById(
-    "nextstep",
-  ).disabled = !checkReading.read;
-  checkReading.noticeBox.innerHTML = checkReading.read
-    ? "Thank you."
-    : "Please, scroll and read the following text.";
+const info = document.getElementById("info");
+const toAgree = document.getElementById("agree");
+const toNextStep = document.getElementById("next-step");
+const veryImportantRead = document.getElementById("very-important-read");
+
+// 判斷是否已經捲動到底
+function isRead(element) {
+  return (
+    Math.abs(element.scrollHeight - element.clientHeight - element.scrollTop) <= 1
+  );
 }
 
-onload = function () {
-  var oToBeRead = document.getElementById("rules");
-  checkReading.noticeBox = document.createElement("span");
-  document.registration.accept.checked = false;
-  checkReading.noticeBox.id = "notice";
-  oToBeRead.parentNode.insertBefore(checkReading.noticeBox, oToBeRead);
-  oToBeRead.parentNode.insertBefore(document.createElement("br"), oToBeRead);
-  oToBeRead.onscroll = checkReading;
-  checkReading.call(oToBeRead);
-};
+function checkScrollToBottom(element) {
+  if (isRead(element)) {
+    info.innerText = "你已閱讀完所有內容，可同意繼續。";
+    toAgree.disabled = false;
+  }
+}
+
+toAgree.addEventListener("change", (e) => {
+  toNextStep.disabled = !e.target.checked;
+});
+
+veryImportantRead.addEventListener("scroll", () => {
+  checkScrollToBottom(veryImportantRead);
+});
+
+toNextStep.addEventListener("click", () => {
+  if (toAgree.checked) {
+    toNextStep.value = "完成！";
+  }
+});
 ```
 
-{{ EmbedLiveSample('scrollHeight 範例', '640', '400') }}
+#### 結果
+
+{{EmbedLiveSample('Checking_that_the_user_has_read_a_text', 640, 250)}}
 
 ## 規範
 
@@ -146,7 +159,11 @@ onload = function () {
 
 ## 參見
 
-- [MSDN: Measuring Element Dimension and Location with CSSOM in Windows Internet Explorer 9](<https://learn.microsoft.com/zh-tw/previous-versions/hh781509(v=vs.85)>)
+- [判斷元素尺寸](/zh-TW/docs/Web/API/CSS_Object_Model/Determining_the_dimensions_of_elements)
+- {{domxref("HTMLElement.offsetHeight")}}
 - {{domxref("Element.clientHeight")}}
-- {{domxref("Element.offsetHeight")}}
-- [Determining the dimensions of elements](/zh-TW/docs/Web/API/CSS_Object_Model/Determining_the_dimensions_of_elements)
+- {{domxref("Element.scrollWidth")}}
+- {{domxref("Element.scrollLeft")}}
+- {{domxref("Element.scrollTop")}}
+- {{domxref("Element.getBoundingClientRect()")}}
+- {{domxref("Element.scrollTo()")}}
