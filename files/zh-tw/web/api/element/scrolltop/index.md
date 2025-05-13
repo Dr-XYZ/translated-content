@@ -1,52 +1,38 @@
 ---
-title: Element.scrollTop
+title: "Element：scrollTop 屬性"
+short-title: scrollTop
 slug: Web/API/Element/scrollTop
+page-type: web-api-instance-property
+browser-compat: api.Element.scrollTop
 ---
 
-{{ APIRef("DOM") }}
+{{APIRef("DOM")}}
 
-**`Element.scrollTop`** 屬性可以設置和獲取元素被向上捲動的高度(pixels). 元素的 `scrollTop` 是元素頂端和能被看見的最頂端之間的距離. 當元素並未產生滾動條, 那麼 `scrollTop` 的值預設為 `0`.
+**`scrollTop`** 是 {{domxref("Element")}} 介面的屬性，用來取得或設定元素內容相對於頂部邊緣被垂直捲動的像素數。此屬性在現代瀏覽器中具備次像素精度，這表示它的值不一定是整數。
 
-## 表達式
+## 值
 
-```js
-// 獲得已經被滾動的距離(pixels)
-var intElemScrollTop = someElement.scrollTop;
-```
+一個雙精度浮點數，代表元素內容目前從頂部被捲動的像素量。正值代表往下捲動（以顯示底部的更多內容），若元素未垂直捲動，則 `scrollTop` 值為 `0`。如果文件不是目前活動的文件，回傳值會是 `0`。若文件是在具有次像素渲染的裝置上顯示，則 `scrollTop` 也可能包含小數點。
 
-`intElemScrollTop` 為 {{domxref("element")}}已經被滾動的距離(pixels ).
+在某些情況下 `scrollTop` 可能是負值，例如當元素的 {{cssxref("flex-direction")}} 設為 `column-reverse` 且內容向上增長時，`scrollTop` 為 `0` 表示捲軸在最底部（內容的起點），當你向上捲動到內容結尾時，`scrollTop` 會變成負值。
 
-```js
-// 設置已經被滾動的距離(pixels)
-element.scrollTop = intValue;
-```
+在 Safari 中，若開啟預設的「彈跳」效果（未設置 {{cssxref("overscroll-behavior")}} 為 `none`），過度捲動會讓 `scrollTop` 超過最大可捲動值，而 Chrome 與 Firefox 則不會這樣處理。因此，在 Safari 中即使元素已經捲到頂部，繼續向上捲動也可能導致 `scrollTop` 成為負值。
 
-`scrollTop` 可以被設置為任何和正整數, 注意事項:
-
-- 如果元素不能滾動, `scrollTop` 被設置為 `0`.
-- 如果設置的值小於 `0`, `scrollTop` 被設置為 `0`.
-- 如果設置的值大於內容可以被滾動的距離, `scrollTop` 被設置為最大值.
+`scrollTop` 屬性也可以設定，這會讓元素捲動到指定的垂直位置，行為等同於使用 {{domxref("Element.scroll()")}} 並設定 `behavior: "auto"`。
 
 ## 範例
 
-### Scrolling an element
+### 捲動一個元素
 
-In this example, try scrolling the inner container with the dashed border, and see how the value of `scrollTop` changes.
+在這個範例中，試著捲動帶有虛線邊框的容器，你會看到 `scrollTop` 的值會隨著捲動變化。
 
 #### HTML
 
 ```html
 <div id="container">
-  <div id="scroller">
-    <p>
-      Far out in the uncharted backwaters of the unfashionable end of the
-      western spiral arm of the Galaxy lies a small unregarded yellow sun.
-      Orbiting this at a distance of roughly ninety-two million miles is an
-      utterly insignificant little blue green planet whose ape-descended life
-      forms are so amazingly primitive that they still think digital watches are
-      a pretty neat idea.
-    </p>
-  </div>
+  <p>
+    遠在銀河系西螺旋臂不受關注的盡頭，有一顆小小不起眼的黃色恆星。在其約九千二百萬英哩外的軌道上，有一顆藍綠色的小行星，它上面的猿類後裔如此原始，居然還覺得數位手錶很酷。
+  </p>
 </div>
 
 <div id="output">scrollTop: 0</div>
@@ -55,7 +41,7 @@ In this example, try scrolling the inner container with the dashed border, and s
 #### CSS
 
 ```css
-#scroller {
+#container {
   overflow: scroll;
   height: 150px;
   width: 150px;
@@ -70,11 +56,11 @@ In this example, try scrolling the inner container with the dashed border, and s
 #### JavaScript
 
 ```js
-const scroller = document.querySelector("#scroller");
+const container = document.querySelector("#container");
 const output = document.querySelector("#output");
 
-scroller.addEventListener("scroll", (event) => {
-  output.textContent = `scrollTop: ${scroller.scrollTop}`;
+container.addEventListener("scroll", () => {
+  output.textContent = `scrollTop: ${container.scrollTop}`;
 });
 ```
 
@@ -86,7 +72,17 @@ scroller.addEventListener("scroll", (event) => {
 
 {{Specifications}}
 
-## 參閱
+## 瀏覽器相容性
 
-- [W3C Draft CSSOM View Module](https://drafts.csswg.org/cssom-view/#dom-element-scrolltop)
-- [MSDN's Measuring Element Dimension and Location](<https://learn.microsoft.com/zh-tw/previous-versions/hh781509(v=vs.85)>)
+{{Compat}}
+
+## 參見
+
+- [判斷元素尺寸](/zh-TW/docs/Web/API/CSS_Object_Model/Determining_the_dimensions_of_elements)
+- {{domxref("HTMLElement.offsetTop")}}
+- {{domxref("Element.clientTop")}}
+- {{domxref("Element.scrollHeight")}}
+- {{domxref("Element.scrollWidth")}}
+- {{domxref("Element.scrollLeft")}}
+- {{domxref("Element.getBoundingClientRect()")}}
+- {{domxref("Element.scrollTo()")}}
