@@ -1,50 +1,43 @@
 ---
-title: Event.eventPhase
+title: Event：eventPhase 屬性
+short-title: eventPhase
 slug: Web/API/Event/eventPhase
+page-type: web-api-instance-property
+browser-compat: api.Event.eventPhase
 ---
 
-{{ApiRef("DOM")}}
+{{APIRef("DOM")}}{{AvailableInWorkers}}
 
-表示事件物件目前於事件流（Event Flow）中傳遞的進度為哪一個階段。
+{{domxref("Event")}} 介面的唯讀屬性 **`eventPhase`** 表示目前正在處理事件流程中的哪個階段。
 
-## 語法
+## 值
 
-```js
-var phase = event.eventPhase;
-```
+回傳一個整數值，表示事件流程中目前的處理階段。可能的值如下：
 
-回傳一個整數值以代表目前事件於事件流中的傳遞階段，可能的值將於[事件傳遞階段常數](#事件傳遞階段常數)說明。
-
-## 常數
-
-### 事件傳遞階段常數
-
-These values describe which phase the event flow is currently being evaluated.
-
-| 常數                                                    | 值  | 說明                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| ------------------------------------------------------- | --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| {{domxref("Event.NONE")}} {{readonlyinline}}            | 0   | No event is being processed at this time.                                                                                                                                                                                                                                                                                                                                                                                                              |
-| {{domxref("Event.CAPTURING_PHASE")}} {{readonlyinline}} | 1   | The event is being propagated through the target's ancestor objects. This process starts with the {{domxref("Window")}}, then {{domxref("Document")}}, then the {{domxref("HTMLHtmlElement")}}, and so on through the elements until the target's parent is reached. {{domxref("EventListener", "Event listeners", "", 1)}} registered for capture mode when {{domxref("EventTarget.addEventListener()")}} was called are triggered during this phase. |
-| {{domxref("Event.AT_TARGET")}} {{readonlyinline}}       | 2   | The event has arrived at {{domxref("EventTarget", "the event's target", "", 1)}}. Event listeners registered for this phase are called at this time. If {{domxref("Event.bubbles")}} is false, processing the event is finished after this phase is complete.                                                                                                                                                                                          |
-| {{domxref("Event.BUBBLING_PHASE")}} {{readonlyinline}}  | 3   | The event is propagating back up through the target's ancestors in reverse order, starting with the parent, and eventually reaching the containing {{domxref("Window")}}. This is known as bubbling, and occurs only if {{domxref("Event.bubbles")}} is `true`. {{domxref("EventListener", "Event listeners", "", 1)}} registered for this phase are triggered during this process.                                                                    |
-
-For more details, see [section 3.1, Event dispatch and DOM event flow](https://www.w3.org/TR/uievents/#event-flow), of the DOM Level 3 Events specification.
+- `Event.NONE`（0）
+  - ：事件目前未被處理。
+- `Event.CAPTURING_PHASE`（1）
+  - ：事件正在從目標元素的祖先物件進行捕獲階段的傳遞。這個過程從 {{domxref("Window")}} 開始，然後是 {{domxref("Document")}}，接著是 {{domxref("HTMLHtmlElement")}}，依此類推，直到到達事件目標的父元素。在呼叫 {{domxref("EventTarget.addEventListener()")}} 時使用捕獲模式所註冊的 {{domxref("EventTarget/addEventListener", "事件監聽器", "", 1)}} 會在此階段觸發。
+- `Event.AT_TARGET`（2）
+  - ：事件已到達{{domxref("EventTarget", "事件的目標", "", 1)}}。在此階段所註冊的監聽器會被觸發。如果 {{domxref("Event.bubbles")}} 為 `false`，那麼事件在此階段完成處理。
+- `Event.BUBBLING_PHASE`（3）
+  - ：事件正在從目標元素的祖先節點向上傳遞，順序與捕獲階段相反，從父元素開始，一直到最外層的 {{domxref("Window")}}。這稱為_冒泡_，僅在 {{domxref("Event.bubbles")}} 為 `true` 時發生。在此階段註冊的 {{domxref("EventTarget/addEventListener", "事件監聽器", "", 1)}} 會在此過程中觸發。
 
 ## 範例
 
 ### HTML
 
 ```html
-<h4>Event Propagation Chain</h4>
+<h4>事件傳遞鏈</h4>
 <ul>
-  <li>Click 'd1'</li>
-  <li>Analyse event propagation chain</li>
-  <li>Click next div and repeat the experience</li>
-  <li>Change Capturing mode</li>
-  <li>Repeat the experience</li>
+  <li>點擊「d1」</li>
+  <li>分析事件傳遞鏈</li>
+  <li>點擊下一層 div 並重複體驗</li>
+  <li>切換「捕獲」模式</li>
+  <li>重複體驗</li>
 </ul>
 <input type="checkbox" id="chCapture" />
-<label for="chCapture">Use Capturing</label>
+<label for="chCapture">使用捕獲階段</label>
 <div id="d1">
   d1
   <div id="d2">
@@ -78,75 +71,81 @@ div {
 ### JavaScript
 
 ```js
-var clear = false,
-  divInfo = null,
-  divs = null,
-  useCapture = false;
-window.onload = function () {
+let clear = false;
+let divInfo = null;
+let divs = null;
+let chCapture = null;
+
+window.onload = () => {
   divInfo = document.getElementById("divInfo");
   divs = document.getElementsByTagName("div");
   chCapture = document.getElementById("chCapture");
-  chCapture.onclick = function () {
-    RemoveListeners();
-    AddListeners();
+  chCapture.onclick = () => {
+    removeListeners();
+    addListeners();
+    clearDivs();
   };
-  Clear();
-  AddListeners();
+  clearDivs();
+  addListeners();
 };
 
-function RemoveListeners() {
-  for (var i = 0; i < divs.length; i++) {
-    var d = divs[i];
-    if (d.id != "divInfo") {
-      d.removeEventListener("click", OnDivClick, true);
-      d.removeEventListener("click", OnDivClick, false);
+function removeListeners() {
+  for (const div of divs) {
+    if (div.id !== "divInfo") {
+      div.removeEventListener("click", onDivClick, true);
+      div.removeEventListener("click", onDivClick, false);
     }
   }
 }
 
-function AddListeners() {
-  for (var i = 0; i < divs.length; i++) {
-    var d = divs[i];
-    if (d.id != "divInfo") {
-      d.addEventListener("click", OnDivClick, false);
-      if (chCapture.checked) d.addEventListener("click", OnDivClick, true);
-      d.onmousemove = function () {
-        clear = true;
-      };
+function addListeners() {
+  for (const div of divs) {
+    if (div.id !== "divInfo") {
+      if (chCapture.checked) {
+        div.addEventListener("click", onDivClick, true);
+      } else {
+        div.addEventListener("click", onDivClick, false);
+        div.onmousemove = () => {
+          clear = true;
+        };
+      }
     }
   }
 }
 
-function OnDivClick(e) {
+function onDivClick(e) {
   if (clear) {
-    Clear();
+    clearDivs();
     clear = false;
   }
-  if (e.eventPhase == 2) e.currentTarget.style.backgroundColor = "red";
-  var level =
-    e.eventPhase == 0
-      ? "none"
-      : e.eventPhase == 1
-        ? "capturing"
-        : e.eventPhase == 2
-          ? "target"
-          : e.eventPhase == 3
-            ? "bubbling"
-            : "error";
-  divInfo.innerHTML += e.currentTarget.id + "; eventPhase: " + level + "<br/>";
+  if (e.eventPhase === 2) {
+    e.currentTarget.style.backgroundColor = "red";
+  }
+  const level =
+    ["none", "capturing", "target", "bubbling"][e.eventPhase] ?? "error";
+  const para = document.createElement("p");
+  para.textContent = `${e.currentTarget.id}；eventPhase: ${level}`;
+  divInfo.appendChild(para);
 }
 
-function Clear() {
-  for (var i = 0; i < divs.length; i++) {
-    if (divs[i].id != "divInfo")
-      divs[i].style.backgroundColor = i & 1 ? "#f6eedb" : "#cceeff";
+function clearDivs() {
+  for (let i = 0; i < divs.length; i++) {
+    if (divs[i].id !== "divInfo") {
+      divs[i].style.backgroundColor = i % 2 !== 0 ? "#f6eedb" : "#cceeff";
+    }
   }
-  divInfo.innerHTML = "";
+  divInfo.textContent = "";
 }
 ```
 
-{{ EmbedLiveSample('範例', '', '700') }}
+### 結果
+
+{{ EmbedLiveSample('Example', '', '700') }}
 
 ## 規範
 
 {{Specifications}}
+
+## 瀏覽器相容性
+
+{{Compat}}
