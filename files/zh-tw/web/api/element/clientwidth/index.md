@@ -1,45 +1,39 @@
 ---
-title: Document.width
+title: Element：clientWidth 屬性
+short-title: clientWidth
 slug: Web/API/Element/clientWidth
+page-type: web-api-instance-property
+browser-compat: api.Element.clientWidth
 ---
 
-{{APIRef("DOM")}} {{deprecated_header}}
+{{APIRef("DOM")}}
 
-> [!NOTE]
-> 從 Gecko 6.0 開始， `document.width` 將不再被支援。取而代之的是 `document.body.clientWidth`。請參照：{{domxref("element.clientWidth")}}.
+**`clientWidth`** 是 {{domxref("Element")}} 介面的唯讀屬性，對於行內元素與沒有 CSS 的元素會是 0；否則，它會回傳元素的內部寬度（以像素為單位）。這個寬度包含內邊距（padding），但不包含邊框（border）、外邊距（margin）與垂直捲軸（如果有的話）。
 
-傳回目前文件中，{{HTMLElement("body")}} 元素的寬度有多少像素。
+當 `clientWidth` 用於根元素（即 `<html>` 元素）（或在怪異模式中用於 `<body>` 元素）時，會回傳視口的寬度（不包含任何捲軸）。
 
-Internet Explorer 不支援！
+## 值
 
-## 語法
-
-```js
-pixels = document.width;
-```
+一個整數。
 
 ## 範例
 
-```js
-function init() {
-  alert("文件的寬度是 " + document.width + " 像素。");
-}
-```
+![一個具有大量 padding、border 和 margin 的元素範例。clientWidth 是元素的內部寬度，包含其 padding，但不包含 margin、border 與垂直捲軸。](dimensions-client.png)
 
-## 其他替代
+## 規範
 
-```js
-document.body.clientWidth; /* <body> 的寬度 */
-document.documentElement.clientWidth; /* <html> 的寬度 */
-window.innerWidth; /* 視窗的寬度 */
-```
+{{Specifications}}
 
-## 規範於
+## 瀏覽器相容性
 
-HTML5
+{{Compat}}
 
-## 同時參考
+## 參見
 
-- {{domxref("document.height")}}
-- {{domxref("Element.clientWidth")}}
+- [判斷元素的尺寸](/zh-TW/docs/Web/API/CSS_Object_Model/Determining_the_dimensions_of_elements)
+- {{domxref("HTMLElement.offsetWidth")}}
 - {{domxref("Element.scrollWidth")}}
+- {{domxref("Element.clientHeight")}}
+- {{domxref("Element.clientLeft")}}
+- {{domxref("Element.clientTop")}}
+- {{domxref("Element.getBoundingClientRect()")}}
