@@ -8,21 +8,21 @@ browser-compat: api.Element.scrollTop
 
 {{APIRef("DOM")}}
 
-**`scrollTop`** 是 {{domxref("Element")}} 介面的屬性，用來取得或設定元素內容相對於頂部邊緣被垂直捲動的像素數。此屬性在現代瀏覽器中具備次像素精度，這表示它的值不一定是整數。
+{{domxref("Element")}} 介面的 **`scrollTop`** 屬性用來用於取得或設定元素內容自頂部邊緣起捲動的像素數。此屬性在現代瀏覽器中具備次像素精度，這表示它的值不一定是整數。
 
 ## 值
 
-一個雙精度浮點數，代表元素內容目前從頂部被捲動的像素量。正值代表往下捲動（以顯示底部的更多內容），若元素未垂直捲動，則 `scrollTop` 值為 `0`。如果文件不是目前活動的文件，回傳值會是 `0`。若文件是在具有次像素渲染的裝置上顯示，則 `scrollTop` 也可能包含小數點。
+一個雙精度浮點數，表示元素內容目前從頂部被捲動的像素量。正值代表往下捲動（以顯示底部的更多內容），若元素未垂直捲動，則 `scrollTop` 值為 `0`。如果文件不是目前活動的文件，回傳值會是 `0`。若文件是在具有次像素渲染的裝置上顯示，則 `scrollTop` 也可能包含小數點。
 
-在某些情況下 `scrollTop` 可能是負值，例如當元素的 {{cssxref("flex-direction")}} 設為 `column-reverse` 且內容向上增長時，`scrollTop` 為 `0` 表示捲軸在最底部（內容的起點），當你向上捲動到內容結尾時，`scrollTop` 會變成負值。
+如果元素可以從初始包含區塊向上捲動，則 `scrollTop` 有可能為負值，例如當元素的 {{cssxref("flex-direction")}} 為 `column-reverse` 且內容向上增長時，`scrollTop` 為 `0` 表示捲軸在最底部（內容的起點），當你向上捲動到內容結尾時，`scrollTop` 會變成負值。
 
-在 Safari 中，若開啟預設的「彈跳」效果（未設置 {{cssxref("overscroll-behavior")}} 為 `none`），過度捲動會讓 `scrollTop` 超過最大可捲動值，而 Chrome 與 Firefox 則不會這樣處理。因此，在 Safari 中即使元素已經捲到頂部，繼續向上捲動也可能導致 `scrollTop` 成為負值。
+Safari 在過度捲動時會將 `scrollTop` 的值更新為超過最大捲動位置的數值（除非關閉預設的「彈跳」效果，例如將 {{cssxref(“overscroll-behavior”)}} 設為 `none`），而 Chrome 與 Firefox 則不會這樣處理。因此，在 Safari 中即使元素已經捲到頂部，繼續向上捲動也可能導致 `scrollTop` 成為負值。
 
 `scrollTop` 屬性也可以設定，這會讓元素捲動到指定的垂直位置，行為等同於使用 {{domxref("Element.scroll()")}} 並設定 `behavior: "auto"`。
 
 ## 範例
 
-### 捲動一個元素
+### 捲動元素
 
 在這個範例中，試著捲動帶有虛線邊框的容器，你會看到 `scrollTop` 的值會隨著捲動變化。
 
@@ -66,7 +66,7 @@ container.addEventListener("scroll", () => {
 
 #### 結果
 
-{{EmbedLiveSample("Scrolling_an_element", 400, 250)}}
+{{EmbedLiveSample("捲動元素", 400, 250)}}
 
 ## 規範
 
@@ -78,7 +78,7 @@ container.addEventListener("scroll", () => {
 
 ## 參見
 
-- [判斷元素尺寸](/zh-TW/docs/Web/API/CSS_Object_Model/Determining_the_dimensions_of_elements)
+- [判斷元素的尺寸](/zh-TW/docs/Web/API/CSS_Object_Model/Determining_the_dimensions_of_elements)
 - {{domxref("HTMLElement.offsetTop")}}
 - {{domxref("Element.clientTop")}}
 - {{domxref("Element.scrollHeight")}}
