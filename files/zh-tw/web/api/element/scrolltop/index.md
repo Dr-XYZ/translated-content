@@ -16,7 +16,7 @@ browser-compat: api.Element.scrollTop
 
 如果元素可以從初始包含區塊向上捲動，則 `scrollTop` 有可能為負值，例如當元素的 {{cssxref("flex-direction")}} 為 `column-reverse` 且內容向上增長時，`scrollTop` 為 `0` 表示捲軸在最底部（內容的起點），當你向上捲動到內容結尾時，`scrollTop` 會變成負值。
 
-Safari 在過度捲動時會將 `scrollTop` 的值更新為超過最大捲動位置的數值（除非關閉預設的「彈跳」效果，例如將 {{cssxref(“overscroll-behavior”)}} 設為 `none`），而 Chrome 與 Firefox 則不會這樣處理。因此，在 Safari 中即使元素已經捲到頂部，繼續向上捲動也可能導致 `scrollTop` 成為負值。
+Safari 在過度捲動時會將 `scrollTop` 的值更新為超過最大捲動位置的數值（除非關閉預設的「彈跳」效果，例如將 {{cssxref(“overscroll-behavior”)}} 設為 `none`），而 Chrome 與 Firefox 則不會這樣處理。例如，在 Safari 中，即使元素已經捲動到頂部，只要繼續向上捲動，`scrollTop` 就可能變成負值。
 
 `scrollTop` 屬性也可以設定，這會讓元素捲動到指定的垂直位置，行為等同於使用 {{domxref("Element.scroll()")}} 並設定 `behavior: "auto"`。
 
