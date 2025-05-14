@@ -1,9 +1,8 @@
 ---
-title: "Element：scrollTop 屬性"
-short-title: scrollTop
+title: Element：scrollTop 屬性
 slug: Web/API/Element/scrollTop
-page-type: web-api-instance-property
-browser-compat: api.Element.scrollTop
+l10n:
+   sourceCommit: 0916e1754652f3a7c663ef031faa26c98f492023
 ---
 
 {{APIRef("DOM")}}
