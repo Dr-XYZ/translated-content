@@ -8,11 +8,11 @@ browser-compat: api.Event.currentTarget
 
 {{APIRef("DOM")}}{{AvailableInWorkers}}
 
-{{domxref("Event")}} 介面的唯讀屬性 **`currentTarget`** 表示事件處理器所綁定的元素。
+{{domxref("Event")}} 介面的 **`currentTarget`** 唯讀屬性表示事件處理器所綁定的元素。
 
 這個元素不一定與觸發事件的元素相同，因為事件可能是在處理器綁定元素的後代元素上觸發，然後[冒泡](/zh-TW/docs/Learn_web_development/Core/Scripting/Event_bubbling)到有處理器的元素。觸發事件的元素由 {{domxref("Event.target")}} 指定。
 
-請注意，`currentTarget` 的值只有在事件處理器內部才可取得。在事件處理器外部，它的值為 `null`。這表示，例如你在事件處理器中取得 `Event` 物件的參考，並在事件處理器外部存取它的 `currentTarget` 屬性時，會得到 `null`。
+注意 `currentTarget` 的值只有在事件處理器內部才可取得。在事件處理器外部，它的值為 `null`。這表示，例如你在事件處理器中取得 `Event` 物件的參考，並在事件處理器外部存取它的 `currentTarget` 屬性時，會得到 `null`。
 
 ## 值
 
