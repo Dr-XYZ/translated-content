@@ -1,17 +1,16 @@
 ---
 title: Event：bubbles 屬性
-short-title: bubbles
 slug: Web/API/Event/bubbles
-page-type: web-api-instance-property
-browser-compat: api.Event.bubbles
+l10n:
+  sourceCommit: 5b20f5f4265f988f80f513db0e4b35c7e0cd70dc
 ---
 
 {{APIRef("DOM")}}{{AvailableInWorkers}}
 
-{{domxref("Event")}} 介面的唯讀屬性 **`bubbles`** 表示此事件是否會在 DOM 樹中冒泡傳遞。
+{{domxref("Event")}} 介面的 **`bubbles`** 唯讀屬性表示此事件是否會在 DOM 樹中冒泡傳遞。
 
 > [!NOTE]
-> 更多關於冒泡的資訊，請參見[事件冒泡](/zh-TW/docs/Learn_web_development/Core/Scripting/Event_bubbling)。
+> 更多關於冒泡的資訊，參見[事件冒泡](/zh-TW/docs/Learn_web_development/Core/Scripting/Event_bubbling)。
 
 ## 值
 
@@ -21,7 +20,7 @@ browser-compat: api.Event.bubbles
 
 ```js
 function handleInput(e) {
-  // 檢查事件是否冒泡，若否則傳遞事件
+  // 檢查事件是否冒泡以傳遞事件
   if (!e.bubbles) {
     passItOn(e);
   }
@@ -41,6 +40,6 @@ function handleInput(e) {
 
 ## 參見
 
-- {{domxref("Event.stopPropagation", "stopPropagation()")}}：在捕獲或冒泡階段中，阻止當前事件繼續傳遞。
-- {{domxref("Event.stopImmediatePropagation", "stopImmediatePropagation()")}}：阻止在同一層級中執行任何其他事件監聽器。
-- {{domxref("Event.preventDefault", "preventDefault()")}}：允許事件繼續傳遞，但阻止瀏覽器在無監聽器處理事件時執行預設行為。
+- {{domxref("Event.stopPropagation", "stopPropagation()")}} 在捕獲或冒泡階段中阻止當前事件繼續傳遞。
+- {{domxref("Event.stopImmediatePropagation", "stopImmediatePropagation()")}} 阻止在同一層級中執行任何其他事件監聽器。
+- {{domxref("Event.preventDefault", "preventDefault()")}} 允許事件繼續傳遞，但阻止瀏覽器在無監聽器處理事件時執行預設行為。
