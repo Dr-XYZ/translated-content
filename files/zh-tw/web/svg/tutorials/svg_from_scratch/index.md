@@ -1,48 +1,29 @@
 ---
-title: SVG教學
+title: 從零開始介紹 SVG
+short-title: 從零開始的 SVG
 slug: Web/SVG/Tutorials/SVG_from_scratch
+l10n:
+  sourceCommit: c2fd97474834e061404b992c8397d4ccc4439a71
 ---
 
-[SVG](/zh-TW/docs/Web/SVG) 是 W3C XML 的方言之一，用於標記可縮放的向量圖形。目前在 Firefox、Opera、Webkit 瀏覽器、IE 等瀏覽器中已經部分實作。
+本教學旨在解釋 SVG 的內部原理，並包含豐富的技術細節。如果你只是想繪製漂亮的圖片，你可能會在 [Inkscape 的文件頁面](https://inkscape.org/learn/)找到更有用的資源。W3C 的 [SVG Primer](https://www.w3.org/Graphics/SVG/IG/resources/svgprimer.html) 也提供了另一個很好的 SVG 入門介紹。也請查看這個以耶誕降臨曆為主題的 [SVG 教學](https://svg-tutorial.com/)，它將引導你編寫 25 個節慶風格的 SVG。
 
-本教學之目標在解釋 SVG 內部的技術細節。如果你只是想要畫出漂亮的圖形，你可以在 [Inkscape 的文件頁面](https://inkscape.org/learn/)上找到更多有用的資源。或是看看另一個好的 SVG 介绍：[W3C 的 SVG 入門](https://www.w3.org/Graphics/SVG/IG/resources/svgprimer.html)。
+## 章節
 
-> [!NOTE]
-> 本教學文件還在初期階段，如果你有能力，可以來增加擴展一兩段，寫一整頁的话會更好！
-
-##### 從頭介紹 SVG
-
-- [導論](/zh-TW/docs/Web/SVG/Tutorials/SVG_from_scratch/Introduction)
-- [開始](/zh-TW/docs/Web/SVG/Tutorials/SVG_from_scratch/Getting_started)
-- [坐標定位](/zh-TW/docs/Web/SVG/Tutorials/SVG_from_scratch/Positions)
-- [基本形状](/zh-TW/docs/Web/SVG/Tutorials/SVG_from_scratch/Basic_shapes)
+- [簡介](/zh-TW/docs/Web/SVG/Tutorials/SVG_from_scratch/Introduction)
+- [入門](/zh-TW/docs/Web/SVG/Tutorials/SVG_from_scratch/Getting_started)
+- [定位](/zh-TW/docs/Web/SVG/Tutorials/SVG_from_scratch/Positions)
+- [基本形狀](/zh-TW/docs/Web/SVG/Tutorials/SVG_from_scratch/Basic_shapes)
 - [路徑](/zh-TW/docs/Web/SVG/Tutorials/SVG_from_scratch/Paths)
-- [填充與邊框](/zh-TW/docs/Web/SVG/Tutorials/SVG_from_scratch/Fills_and_strokes)
-- [漸變](/zh-TW/docs/Web/SVG/Tutorials/SVG_from_scratch/Gradients)
-- [模式](/zh-TW/docs/Web/SVG/Tutorials/SVG_from_scratch/Patterns)
+- [填色與邊框](/zh-TW/docs/Web/SVG/Tutorials/SVG_from_scratch/Fills_and_strokes)
+- [漸層](/zh-TW/docs/Web/SVG/Tutorials/SVG_from_scratch/Gradients)
+- [圖樣](/zh-TW/docs/Web/SVG/Tutorials/SVG_from_scratch/Patterns)
 - [文字](/zh-TW/docs/Web/SVG/Tutorials/SVG_from_scratch/Texts)
-- [基本變换](/zh-TW/docs/Web/SVG/Tutorials/SVG_from_scratch/Basic_transformations)
-- [裁剪和遮罩](/zh-TW/docs/Web/SVG/Tutorials/SVG_from_scratch/Clipping_and_masking)
-- [其他 SVG 内容](/zh-TW/docs/Web/SVG/Tutorials/SVG_from_scratch/Other_content_in_SVG)
-- [濾镜效果](/zh-TW/docs/Web/SVG/Tutorials/SVG_from_scratch/Filter_effects)
-- [SVG 字型](/zh-TW/docs/Web/SVG/Tutorials/SVG_from_scratch/Using_fonts)
-- [SVG 的 Image 標籤](/zh-TW/docs/Web/SVG/Tutorials/SVG_from_scratch/Image_element)
+- [基本變換](/zh-TW/docs/Web/SVG/Tutorials/SVG_from_scratch/Basic_transformations)
+- [裁剪與遮罩](/zh-TW/docs/Web/SVG/Tutorials/SVG_from_scratch/Clipping_and_masking)
+- [SVG 中的其他內容](/zh-TW/docs/Web/SVG/Tutorials/SVG_from_scratch/Other_content_in_SVG)
+- [濾鏡效果](/zh-TW/docs/Web/SVG/Tutorials/SVG_from_scratch/Filter_effects)
+- [使用字型](/zh-TW/docs/Web/SVG/Tutorials/SVG_from_scratch/Using_fonts)
+- [SVG 圖片元素](/zh-TW/docs/Web/SVG/Tutorials/SVG_from_scratch/Image_element)
 - [SVG 工具](/zh-TW/docs/Web/SVG/Tutorials/SVG_from_scratch/Tools_for_SVG)
-
-下面陳列進階主题，需要單獨列出教學。
-
-##### JavaScript 脚本化 SVG
-
-待定
-
-##### SVG 濾镜教學
-
-待定
-
-##### SVG 的 SMIL 動畫
-
-待定
-
-##### 在 SVG 中建立字形
-
-待定
+- [SVG 與 CSS](/zh-TW/docs/Web/SVG/Tutorials/SVG_from_scratch/SVG_and_CSS)
