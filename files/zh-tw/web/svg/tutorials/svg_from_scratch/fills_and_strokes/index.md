@@ -1,129 +1,158 @@
 ---
-title: 填充与边框
+title: 填色與描邊
 slug: Web/SVG/Tutorials/SVG_from_scratch/Fills_and_strokes
+l10n:
+  sourceCommit: c1564acf160ef4b320fb7b89ab65211b9c50cf1b
 ---
 
 {{ PreviousNext("Web/SVG/Tutorials/SVG_from_scratch/Paths", "Web/SVG/Tutorials/SVG_from_scratch/Gradients") }}
 
-现在你掌握的知识已经可以绘制任何图形，下一个目标是给它们上色。在 SVG 绘图中，可以使用若干方法上色，比如给图形对象增加指定的属性，使用行间 CSS，使用 CSS 嵌入段落，或者使用外部引用的 CSS 文件。你会发现大部分 web 上的 SVG 使用的是行间 CSS，但每种方法都有自身的优点和缺点，在不同情况下，应该酌情选择合适的方法。
+有幾種方法可以為形狀上色（包含在物件上指定屬性）：使用行內 [CSS](/zh-TW/docs/Glossary/CSS)、嵌入的 CSS 區塊或外部 CSS 檔案。你在網路上找到的大多數 [SVG](/zh-TW/docs/Glossary/SVG) 都使用行內 CSS，但每種類型都有其優缺點。
 
-## fill（填充）和 stroke（边框）属性
+## 填色與描邊屬性
 
-### 上色
+### 著色
 
-大多数基本的颜色可以使用`fill`和`stroke`两个属性来设置。`fill`设置的是对象的填充色，`stroke`设置的是对象的边框颜色，你可以使用在 HTML 中设置 CSS 颜色的方式定义它们的颜色，比如颜色名（_red_），*rgb*值，*hex*值，*rgba*值。
+基本的著色可以透過在節點上設定兩個屬性來完成：`fill` 和 `stroke`。使用 `fill` 可以設定物件內部的顏色，而 `stroke` 則設定圍繞物件繪製的線條顏色。你可以使用與 HTML 中相同的 CSS 顏色命名方案，無論是顏色名稱（如 `red`）、rgb 值（如 `rgb(255 0 0)`）、十六進位值等。
 
-```xml
- <rect x="10" y="10" width="100" height="100" stroke="blue" fill="purple"
-
-       fill-opacity="0.5" stroke-opacity="0.8"/>
-```
-
-此外，在 SVG 中你可以分别定义填充色和边框色的透明度，它们分别由 `fill-opacity` 和 `stroke-opacity` 两个属性控制。
-
-> [!NOTE]
-> FireFox 3+支持 rgba 值，并且能够提供同样的效果，但是为了在其他浏览器中保持兼容，最好将它和边框/填充的透明度分开使用。如果同时定义了 rgba 值和透明度，它们将被一起调用。
-
-### 边框
-
-除了颜色属性，还有其他一些属性用来控制绘制边框的方式。
-
-![](svg_stroke_linecap_example.png)
-
-```xml
+```html
 <?xml version="1.0" standalone="no"?>
-
 <svg width="160" height="140" xmlns="http://www.w3.org/2000/svg" version="1.1">
-
-  <line x1="40" x2="120" y1="20" y2="20" stroke="black" stroke-width="20" stroke-linecap="butt"/>
-
-  <line x1="40" x2="120" y1="60" y2="60" stroke="black" stroke-width="20" stroke-linecap="square"/>
-
-  <line x1="40" x2="120" y1="100" y2="100" stroke="black" stroke-width="20" stroke-linecap="round"/>
-
+  <rect
+    x="10"
+    y="10"
+    width="100"
+    height="100"
+    stroke="blue"
+    fill="purple"
+    fill-opacity="0.5"
+    stroke-opacity="0.8"
+    stroke-width="15" />
 </svg>
 ```
 
-我要特别提醒一点，边框是围绕路径绘制的，在上面的例子里，路径是粉色的，边框是黑色的。`stroke-width`属性定义了边框的粗细，如你所见，路径的每一侧都有均匀分布的边框。
+{{EmbedLiveSample("著色", "100%", 150)}}
 
-第二个要介绍的是`stroke-linecap`属性，它控制边框终点的形状。`stroke-linecap`属性的值有三种，`butt`表示用直边结束边框，`square`的效果差不多，但是会稍微超出`path`的范围，超出的大小是`stroke-width`控制的。`round`表示边框的终点是圆角，圆角的半径也是`stroke-width`控制的。
+此外，你可以在 SVG 中分別指定 `fill` 或 `stroke` 的不透明度。這些是由 `fill-opacity` 和 `stroke-opacity` 屬性控制的。
 
-还有一个`stroke-linejoin`属性，用来控制两条边框线段之间，用什么方式连接。
+### 描邊
 
-![](svg_stroke_linejoin_example.png)
+除了顏色屬性外，還有一些其他屬性可用來控制描邊在線條上的繪製方式。
+
+![stroke-linecap 屬性改變了這些描邊端點的外觀：square 增加了一個方形端點，round 提供了一個圓形端點，而 butt 則移除了端點樣式](svg_stroke_linecap_example.png)
 
 ```xml
 <?xml version="1.0" standalone="no"?>
+<svg width="160" height="140" xmlns="http://www.w3.org/2000/svg" version="1.1">
+  <line x1="40" x2="120" y1="20" y2="20" stroke="black" stroke-width="20" stroke-linecap="butt"/>
+  <line x1="40" x2="120" y1="60" y2="60" stroke="black" stroke-width="20" stroke-linecap="square"/>
+  <line x1="40" x2="120" y1="100" y2="100" stroke="black" stroke-width="20" stroke-linecap="round"/>
+</svg>
+```
 
+`stroke-width` 屬性定義了此描邊的寬度。描邊是圍繞路徑置中繪製的。在上面的範例中，路徑以粉紅色顯示，描邊以黑色顯示。
+
+第二個影響描邊的屬性是 `stroke-linecap` 屬性，如上所示。它控制線條端點的形狀。
+
+`stroke-linecap` 有三個可能的值：
+
+- `butt` 用一條與描邊方向垂直（成 90 度）並穿過其端點的直線來封閉線條。
+- `square` 的外觀基本相同，但會將描邊稍微延伸到實際路徑之外。描邊超出路徑的距離是 `stroke-width` 的一半。
+- `round` 在描邊的末端產生圓角效果。這個曲線的半徑也由 `stroke-width` 控制。
+
+使用 `stroke-linejoin` 來控制兩個線段之間的接合處如何繪製。
+
+![stroke-linejoin 屬性改變了兩條線條交會點的外觀，miter 建立了一個有角度的接合，round 將角落變圓，而 bevel 則建立了一個斜角邊緣，使角落變平。](svg_stroke_linejoin_example.png)
+
+```xml
+<?xml version="1.0" standalone="no"?>
 <svg width="160" height="280" xmlns="http://www.w3.org/2000/svg" version="1.1">
-
   <polyline points="40 60 80 20 120 60" stroke="black" stroke-width="20"
-
       stroke-linecap="butt" fill="none" stroke-linejoin="miter"/>
 
-
-
   <polyline points="40 140 80 100 120 140" stroke="black" stroke-width="20"
-
       stroke-linecap="round" fill="none" stroke-linejoin="round"/>
 
-
-
   <polyline points="40 220 80 180 120 220" stroke="black" stroke-width="20"
-
       stroke-linecap="square" fill="none" stroke-linejoin="bevel"/>
-
 </svg>
 ```
 
-折线是由两个线段连接起来的，连接处的样式由`stroke-linejoin`属性控制，它有三个可用的值，`miter`是默认值，表示用方形画笔在连接处形成直角，`round`表示用圆角连接，实现平滑效果。最后还有一个值`bevel`，连接处会形成一个斜线。
+這些折線中的每一條都有兩個線段。兩者相交的接合處由 `stroke-linejoin` 屬性控制。此屬性有三個可能的值。`miter` 將線條稍微延伸到其正常寬度之外，以建立一個只使用一個角度的方角。`round` 建立一個圓角的線段。`bevel` 建立一個新的角度以幫助兩個線段之間的過渡。
 
-最后，你可以使用`stroke-dasharray`属性，将边框定义成虚线。
+最後，你還可以透過指定 `stroke-dasharray` 屬性在描邊上使用虛線類型。
 
-![](svg_stroke_dasharray_example.png)
+![兩條自訂的虛線，一條是等距的虛線，另一條是使用 stroke-dasharray 屬性值設定的長短虛線。](svg_stroke_dasharray_example.png)
 
 ```xml
 <?xml version="1.0" standalone="no"?>
-
 <svg width="200" height="150" xmlns="http://www.w3.org/2000/svg" version="1.1">
-
   <path d="M 10 75 Q 50 10 100 75 T 190 75" stroke="black"
-
     stroke-linecap="round" stroke-dasharray="5,10,5" fill="none"/>
-
   <path d="M 10 75 L 190 75" stroke="red"
-
     stroke-linecap="round" stroke-width="1" stroke-dasharray="5,5" fill="none"/>
-
 </svg>
 ```
 
-`stroke-dasharray`属性的参数，是一组用逗号分割的数字组成的序列。需要注意的是，这里的数字必须用逗号分割，虽然也可以插入空格，但是数字之间必须用逗号分开。每一组数字，第一个用来表示实线，第二个用来表示空白。所以在上面的例子里，第二个路径会先画 5px 实线，紧接着是 5px 空白，然后又是 5px 实线，从而形成虚线。如果你想要更复杂的虚线模式，你可以定义更多的数字。上面例子里的第一个，就定义了 3 个数字，这种情况下，数字会循环两次，形成一个偶数的虚线模式。所以该路径首先是 5px 实线，然后是 10px 空白，然后是 5px 实线，接下来循环这组数字，形成 5px 空白、10px 实线、5px 空白。然后这种模式会继续循环。
+`stroke-dasharray` 屬性可以接受一系列以逗號和／或空白分隔的數字作為其參數。
 
-另外还有一些关于填充和边框的属性，包括`fill-rule`，用于定义如何给图形重叠的区域上色；`stroke-miterlimit`，定义什么情况下绘制或不绘制边框连接的`miter`效果；还有`stroke-dashoffset`，定义虚线开始的位置。
+第一個數字指定填滿區域的距離，第二個數字指定未填滿區域的距離。因此，在上面的範例中，第二個路徑填滿 5 個像素單位，然後是 5 個空白單位，直到下一個 5 個單位的虛線。如果你想要更複雜的虛線圖案，可以指定更多數字。第一個範例指定了三個數字，在這種情況下，算繪器會將數字循環兩次以建立一個均勻的圖案。因此，第一個路徑算繪 5 個填滿、10 個空白、5 個填滿，然後循環回來建立 5 個空白、10 個填滿、5 個空白。然後圖案重複。
+
+還有其他可用的 `stroke` 和 `fill` 屬性，包括 `fill-rule`，它指定如何為自我重疊的形狀上色；[`stroke-miterlimit`](/zh-TW/docs/Web/SVG/Reference/Attribute/stroke-miterlimit)，它決定描邊是否應該繪製斜接；以及 [stroke-dashoffset](/zh-TW/docs/Web/SVG/Reference/Attribute/stroke-dashoffset)，它指定在線條上從何處開始虛線陣列。
+
+### 繪製順序
+
+填色和描邊的繪製順序可以使用 [`paint-order`](/zh-TW/docs/Web/SVG/Reference/Attribute/paint-order) 屬性來控制。
+
+```html
+<?xml version="1.0" standalone="no"?>
+<svg width="400" height="180" xmlns="http://www.w3.org/2000/svg" version="1.1">
+  <polyline
+    points="40 80 80 40 120 80"
+    stroke-width="15"
+    stroke="black"
+    fill="coral"
+    paint-order="fill" />
+
+  <polyline
+    points="40 140 80 100 120 140"
+    stroke-width="15"
+    stroke="black"
+    fill="coral"
+    paint-order="stroke" />
+</svg>
+```
+
+{{EmbedLiveSample("繪製順序", "100%", 180)}}
+
+在第一個形狀的情況下，填色在描邊之前被算繪，所以黑色的描邊出現在填色之上。在第二個形狀的情況下，描邊在填色之前被算繪。
 
 ## 使用 CSS
 
-除了定义对象的属性外，你也可以通过 CSS 来定义`fill`和`stroke`。语法和在 html 里使用 CSS 一样，只不过你要把`background-color`、`border`改成`fill`和`stroke`。注意，不是所有的属性都能用 CSS 来设置。上色和填充的部分一般是可以用 CSS 来设置的，比如`fill`，`stroke`，`stroke-dasharray`等，但是不包括下面会提到的渐变和模式等功能。另外，宽、高，以及路径的 d 命令，都不能用 css 设置。判断它们能不能用 CSS 设置还是比较容易的。
+除了在物件上設定屬性外，你還可以使用 CSS 來為填色和描邊設定樣式。並非所有屬性都可以透過 CSS 設定。與著色和填色相關的屬性通常是可用的，因此 `fill`、`stroke`、`stroke-dasharray` 等都可以用這種方式設定，此外還有下面顯示的漸層和圖案版本。像 `width`、`height` 或 {{SVGElement("path")}} 命令這樣的屬性不能透過 CSS 設定。最簡單的方法就是測試一下，找出哪些可用，哪些不可用。
 
-> **備註：** [SVG 规范](https://www.w3.org/TR/SVG/propidx.html)将属性区分成*properties*和*其他 attributes*，前者是可以用 CSS 设置的，后者不能。
+> [!NOTE]
+> [SVG 規範](https://svgwg.org/svg2-draft/propidx.html)嚴格區分了作為*特性*（properties）的屬性（attributes）與其他屬性。前者可以用 CSS 修改，後者則不行。
 
-CSS 可以通过 style 属性插入到元素的行间:
+CSS 可以透過 `style` 屬性以行內方式插入到元素中：
 
 ```xml
  <rect x="10" height="180" y="10" width="180" style="stroke: black; fill: red;"/>
 ```
 
-或者通过\<style>设置一段样式段落。在 html 里这样的段落一般放在里，在 svg 则放在 [`<defs>`](/zh-TW/docs/Web/SVG/Reference/Element/defs) 标签里。`<defs>` 表示定义，这里可以定义一些不会在 SVG 图形中出现的元素，但是它们可以被其他元素使用。
+或者，它可以被移動到你包含的一個特殊的樣式區塊中。不過，它不是像在 HTML 中那樣將這樣的區塊塞進 `<head>` 區塊，而是包含在一個名為 {{SVGElement("defs")}} 的區域中。
+
+{{SVGElement("defs")}} 代表定義（definitions），在這裡你可以建立不會直接出現在 SVG 中，但會被其他元素使用的元素。
 
 ```xml
 <?xml version="1.0" standalone="no"?>
 <svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" version="1.1">
   <defs>
-    <style type="text/css"><![CDATA[
+    <style><![CDATA[
        #MyRect {
          stroke: black;
          fill: red;
+         paint-order: stroke;
        }
     ]]></style>
   </defs>
@@ -131,28 +160,27 @@ CSS 可以通过 style 属性插入到元素的行间:
 </svg>
 ```
 
-通过使用 style 段落你可以更轻易地调整一大组元素的样式，同样你也可以通过 **hover** 这样的伪类来创建翻转之类的效果:
+將樣式移動到像這樣的區域可以更容易地調整大量元素的屬性。你還可以使用像是 **`:hover` 偽類別**來建立滑鼠懸停效果：
 
 ```css
-#MyRect {
+#MyRect:hover {
   stroke: black;
-  fill: red;
+  fill: blue;
 }
 ```
 
-你最好读一下 CSS 教程以便掌握它，一些可以在 html 里使用的 css，在 svg 里可能无法正常工作，比如 `before` 和 `after` 伪类。所以这里需要一点经验。
-
-你也可以定义一个外部的样式表，但是要符合 [normal XML-stylesheet syntax](https://www.w3.org/TR/xml-stylesheet/) 的 CSS 规则:
+你也可以透過[標準的 XML 樣式表語法](https://www.w3.org/TR/xml-stylesheet/)為你的 CSS 規則指定一個外部樣式表：
 
 ```xml
 <?xml version="1.0" standalone="no"?>
 <?xml-stylesheet type="text/css" href="style.css"?>
-<svg width="200" height="150" xmlns="http\://www\.w3.org/2000/svg" version="1.1">
-<rect height="10" width="10" id="MyRect"/>
+
+<svg width="200" height="150" xmlns="http://www.w3.org/2000/svg" version="1.1">
+  <rect height="10" width="10" id="MyRect"/>
 </svg>
 ```
 
-style.css 看起来就像这样：
+其中 `style.css` 的內容大致如下：
 
 ```css
 #MyRect {

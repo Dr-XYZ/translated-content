@@ -1,17 +1,19 @@
 ---
-title: 基本形状
+title: 基本形狀
 slug: Web/SVG/Tutorials/SVG_from_scratch/Basic_shapes
+l10n:
+  sourceCommit: c2fd97474834e061404b992c8397d4ccc4439a71
 ---
 
 {{ PreviousNext("Web/SVG/Tutorials/SVG_from_scratch/Positions", "Web/SVG/Tutorials/SVG_from_scratch/Paths") }}
 
-下面将介绍一些 SVG 绘图常用的形状命令，通过它们名字，你可以很轻易的看出它们可以画出什么。这里也会给出一些定义位置和尺寸的属性，但不会介绍如何将元素定义得更准确更完善。在这里我们只介绍必须的基本功能，因为它们会被广泛应用在 SVG 文件里。
+有幾種基本形狀用於大多數的 SVG 繪圖。這些形狀的用途從它們的名稱就能輕易看出。這裡會提供一些決定其位置和大小的參數，但元素參考文件可能會包含更準確、更完整的描述以及此處未涵蓋的其他屬性。然而，由於它們在大多數 SVG 文件中都會使用，因此有必要對它們進行一些介紹。
 
-## 基本形状
+要插入一個形狀，你需要在文件中建立一個元素。不同的元素對應不同的形狀，並使用不同的參數來描述這些形狀的大小和位置。有些形狀稍嫌多餘，因為它們可以由其他形狀建立，但它們的存在是為了方便你，並讓你的 SVG 文件盡可能簡短易讀。所有基本形狀如下圖所示。
 
-你需要在文档里创建一个元素，来新增相应的形状。不同的元素用来定义不同的形状，并采用不同的属性定义尺寸和位置。其中一些是可以被其他形状命令替代的，所以显得有点多余，但是它们的存在是有意义的，它们可以让你用起来更方便，并且保证你的 SVG 文档尽可能简洁易懂。所有的基本形状都在右边的图例里展示出来了，生成它们的代码如下：
+![連續八個不同的形狀和圖形。左上角是一個黑色外框的正方形，其後是一個黑色圓角外框的正方形。左下方是一個紅色外框的圓形，其後是一個紅色外框的橢圓形。左下方是一條黃色的線，其後是一條黃色的鋸齒線。黃色線條下方是一個綠色外框的星星，圖像末端是一條藍色的波浪線。](shapes.png)
 
-![](shapes.png)
+產生該圖像的程式碼大致如下：
 
 ```xml
 <?xml version="1.0" standalone="no"?>
@@ -23,7 +25,7 @@ slug: Web/SVG/Tutorials/SVG_from_scratch/Basic_shapes
   <circle cx="25" cy="75" r="20" stroke="red" fill="transparent" stroke-width="5"/>
   <ellipse cx="75" cy="75" rx="20" ry="5" stroke="red" fill="transparent" stroke-width="5"/>
 
-  <line x1="10" x2="50" y1="110" y2="150" stroke="orange" fill="transparent" stroke-width="5"/>
+  <line x1="10" x2="50" y1="110" y2="150" stroke="orange" stroke-width="5"/>
   <polyline points="60 110 65 120 70 115 75 130 80 125 85 140 90 135 95 150 100 145"
       stroke="orange" fill="transparent" stroke-width="5"/>
 
@@ -34,110 +36,116 @@ slug: Web/SVG/Tutorials/SVG_from_scratch/Basic_shapes
 </svg>
 ```
 
-> **備註：** `stroke`, `stroke-width` 和 `fill` 等属性会在后面的章节里介绍。
+> [!NOTE]
+> `stroke`、`stroke-width` 和 `fill` 屬性將在本教學的後續部分解釋。
 
-### 矩形 rect
+## 矩形
 
-[rect](/zh-TW/docs/Web/SVG/Reference/Element/rect)元素用来创建矩形，它有 6 个基本属性，用于设定它的位置以及样式。上面的图例里，最开始的两个图形都是矩形，右边的矩形设定了 rx 和 ry 属性，从而增加了圆角，如果不给它们赋值，其默认值为 0，也就没有圆角。
+{{SVGElement("rect")}} 元素會在螢幕上繪製一個矩形。有六個基本屬性可以控制矩形在螢幕上的位置和形狀。右邊的矩形設定了 `rx` 和 `ry` 參數，使其具有圓角。如果未設定它們，則預設為 `0`。
 
 ```xml
 <rect x="10" y="10" width="30" height="30"/>
 <rect x="60" y="10" rx="10" ry="10" width="30" height="30"/>
 ```
 
-- x
-  - : 矩形左上角的 x 轴坐标
-- y
-  - : 矩形左上角的 y 轴坐标
-- width
-  - : 矩形的宽
-- height
-  - : 矩形的高
-- rx
-  - : 圆角的 x 轴半径
-- ry
-  - : 圆角的 y 轴半径
+- `x`
+  - : 矩形左上角的 x 座標。
+- `y`
+  - : 矩形左上角的 y 座標。
+- `width`
+  - : 矩形的寬度。
+- `height`
+  - : 矩形的高度。
+- `rx`
+  - : 矩形圓角的 x 軸半徑。
+- `ry`
+  - : 矩形圓角的 y 軸半徑。
 
-### 圆形 circle
+## 圓形
 
-[circle](/zh-TW/docs/Web/SVG/Reference/Element/circle) 元素用来创建圆形，这里给出了 3 个属性：
+{{SVGElement("circle")}} 元素會在螢幕上繪製一個圓形。它需要三個基本參數來決定元素的大小和形狀。
 
 ```xml
 <circle cx="25" cy="75" r="20"/>
 ```
 
-- r
-  - : 半径
-- cx
-  - : 圆心的 x 轴坐标
-- cy
-  - : 圆心的 y 轴坐标
+- `r`
+  - : 圓形的半徑。
+- `cx`
+  - : 圓心點的 x 座標。
+- `cy`
+  - : 圓心點的 y 座標。
 
-### 椭圆 ellipse
+## 橢圓形
 
-[椭圆 ellipse](/zh-TW/docs/Web/SVG/Reference/Element/ellipse)其实就是一种特殊的圆形，这里可以改变 x 和 y 轴的半径来区分它们（数学上称为长轴半径和短轴半径）。
+{{SVGElement("ellipse")}} 是 {{SVGElement("circle")}} 元素更通用的形式，你可以分別縮放圓形的 x 和 y 軸半徑（在數學上通常稱為*半長軸*和*半短軸*）。
 
 ```xml
 <ellipse cx="75" cy="75" rx="20" ry="5"/>
 ```
 
-- rx
-  - : x 轴半径
-- ry
-  - : y 轴半径
-- cx
-  - : 圆心的 x 轴坐标
-- cy
-  - : 圆心的 y 轴坐标
+- `rx`
+  - : 橢圓的 x 軸半徑。
+- `ry`
+  - : 橢圓的 y 軸半徑。
+- `cx`
+  - : 橢圓中心點的 x 座標。
+- `cy`
+  - : 橢圓中心點的 y 座標。
 
-### 线 line
+## 線條
 
-[line](/zh-TW/docs/Web/SVG/Reference/Element/line)画的是线段，通过在属性中定义起点和终点的坐标，构成两点之间的线段。
-
-```xml
-<line x1="10" x2="50" y1="110" y2="150"/>
-```
-
-- x1
-  - : 第一个点的 x 轴坐标
-- y1
-  - : 第一个点的 y 轴坐标
-- x2
-  - : 第二个点的 x 轴坐标
-- y2
-  - : 第二个点的 y 轴坐标
-
-### 折线 polyline
-
-[折线 polyline](/zh-TW/docs/Web/SVG/Reference/Element/polyline)是一组连接起来的线段，折线上所有的点都放在一个属性里:
+{{SVGElement("line")}} 元素以兩個點的位置作為參數，並在它們之間繪製一條直線。
 
 ```xml
-<polyline points="60 110, 65 120, 70 115, 75 130, 80 125, 85 140, 90 135, 95 150, 100 145"/>
+<line x1="10" x2="50" y1="110" y2="150" stroke="black" stroke-width="5"/>
 ```
 
-- points 属性
-  - : points 属性是点的列表，每个数字用空格、逗号、换行或回车分隔开。每个点包括两个数字，一个 x 轴坐标一个 y 轴坐标，所以，(0,0)、(1,1)、(2,2)这三个点的列表应该写成「0 0, 1 1, 2 2」。
+- `x1`
+  - : 點 1 的 x 座標。
+- `y1`
+  - : 點 1 的 y 座標。
+- `x2`
+  - : 點 2 的 x 座標。
+- `y2`
+  - : 點 2 的 y 座標。
 
-### 多边形 polygon
+## 折線
 
-[多边形 polygon](/zh-TW/docs/Web/SVG/Reference/Element/polygon)和折线很像，它们都是定义一组点，然后将点用线段连接起来，从而形成一个图形。不同的是，多边形的起点和终点会连起来，形成一个闭合的形状。需要注意的是，矩形也是一种多边形，如果需要的话，你也可以用多边形来创建一个矩形。
+{{SVGElement("polyline")}} 是一組相連的直線。由於點的列表可能會很長，所以所有的點都包含在一個屬性中：
 
 ```xml
-<polygon points="50 160, 55 180, 70 180, 60 190, 65 205, 50 195, 35 205, 40 190, 30 180, 45 180"/>
+<polyline points="60, 110 65, 120 70, 115 75, 130 80, 125 85, 140 90, 135 95, 150 100, 145"/>
 ```
 
-- points 属性
-  - : 多边形的 points 属性也是点的列表，每个数字用空格、逗号、换行或回车分隔开。每个点包括两个数字，一个 x 轴坐标一个 y 轴坐标，所以，(0,0)、(1,1)、(2,2)这三个点的列表应该写成「0 0, 1 1, 2 2」。这些都和折线的 points 属性一样。不同的是，这里的最后一个点和第一个点会自动连接起来，形成闭合路径。
+- `points`
+  - : 一個點的列表。每個數字之間必須用空格、逗號、EOL（行尾符）或換行符分隔，也允許額外的空白字元。每個點必須包含兩個數字：一個 x 座標和一個 y 座標。所以，列表 `(0,0)`、`(1,1)` 和 `(2,2)` 可以寫成 `0, 0 1, 1 2, 2`。
 
-### 路径 path
+## 多邊形
 
-[路径 path](/zh-TW/docs/Web/SVG/Reference/Element/path)可能是 SVG 中最通用的一种形状，通过 path 元素，我们可以创建矩形（有没有圆角都行）、圆形、椭圆形、折线、多边形，以及其他一些形状，比如二次贝塞尔曲线、三次贝塞尔曲线，等等。因为 path 很强大也很复杂，所以会在[下一章](/zh-TW/docs/Web/SVG/Tutorials/SVG_from_scratch/Paths)进行详细介绍。这里只介绍一个定义路径形状的属性。
+{{SVGElement("polygon")}} 與 {{SVGElement("polyline")}} 相似，它是由連接一系列點的直線段組成。但對於多邊形，路徑會自動將最後一個點與第一個點相連，從而建立一個封閉的形狀。
+
+> [!NOTE]
+> 矩形是一種多邊形，所以可以用多邊形來建立一個沒有圓角的 `<rect/>` 元素。
 
 ```xml
-<path d="M 20 230 Q 40 205, 50 230 T 90230"/>
+<polygon points="50, 160 55, 180 70, 180 60, 190 65, 205 50, 195 35, 205 40, 190 30, 180 45, 180"/>
 ```
 
-- d 属性
-  - : d 属性的值是由一些点的坐标，以及控制这些坐标的命令组成的，它们一起描述了路径的形状。具体内容在[path 章节](/zh-TW/docs/Web/SVG/Tutorials/SVG_from_scratch/Paths)里介绍。
+- `points`
+  - : 一個點的列表，每個數字之間用空格、逗號、EOL（行尾符）或換行符分隔，也允許額外的空白字元。每個點必須包含兩個數字：一個 x 座標和一個 y 座標。所以，列表 `(0,0)`、`(1,1)` 和 `(2,2)` 可以寫成 `0, 0 1, 1 2, 2`。然後繪圖會封閉路徑，所以會從 `(2,2)` 到 `(0,0)` 繪製最後一條直線。
+
+## 路徑
+
+{{SVGElement("path")}} 是 SVG 中可以使用的最通用的形狀。使用 `path` 元素，你可以繪製矩形（有或沒有圓角）、圓形、橢圓形、折線和多邊形。基本上任何其他類型的形狀、貝茲曲線、二次曲線等等都可以。
+
+因此，本教學的[下一節](/zh-TW/docs/Web/SVG/Tutorials/SVG_from_scratch/Paths)將專注於路徑。但現在，請注意只有一個參數用於控制其形狀。
+
+```xml
+<path d="M20,230 Q40,205 50,230 T90,230" fill="none" stroke="blue" stroke-width="5"/>
+```
+
+- `d`
+  - : 一個點的列表以及關於如何繪製路徑的其他訊息。請參閱[路徑](/zh-TW/docs/Web/SVG/Tutorials/SVG_from_scratch/Paths)一節以獲取更多訊息。
 
 {{ PreviousNext("Web/SVG/Tutorials/SVG_from_scratch/Positions", "Web/SVG/Tutorials/SVG_from_scratch/Paths") }}

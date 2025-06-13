@@ -1,124 +1,124 @@
 ---
 title: stroke-dashoffset
 slug: Web/SVG/Reference/Attribute/stroke-dashoffset
+l10n:
+  sourceCommit: 3c83d88f02f33f4066224e9f624a17dd2a0b0d19
 ---
 
-`stroke-dashoffset` 屬性指定一個數值至虛線的開頭。
+**`stroke-dashoffset`** 屬性是一個外觀屬性，用於定義相關虛線陣列在算繪時的偏移量。
 
-如果使用 [\<percentage>](/zh-TW/docs/Web/SVG#percentage)，值則會代表當前 viewport 的百分比。
+> [!NOTE]
+> 作為一個外觀屬性，`stroke-dashoffset` 也有一個對應的 CSS 屬性：{{cssxref("stroke-dashoffset")}}。當兩者都被指定時，CSS 屬性會優先採用。
 
-值允許為負值。
+你可以在以下 SVG 元素上使用此屬性：
 
-## Usage context
+- {{SVGElement('circle')}}
+- {{SVGElement('ellipse')}}
+- {{SVGElement('path')}}
+- {{SVGElement('line')}}
+- {{SVGElement('polygon')}}
+- {{SVGElement('polyline')}}
+- {{SVGElement('rect')}}
+- {{SVGElement('text')}}
+- {{SVGElement('textPath')}}
+- {{SVGElement('tspan')}}
 
-<table>
+## 範例
+
+```css hidden
+html,
+body,
+svg {
+  height: 100%;
+}
+```
+
+```html
+<svg viewBox="-3 0 33 10" xmlns="http://www.w3.org/2000/svg">
+  <!-- 沒有虛線陣列 -->
+  <line x1="0" y1="1" x2="30" y2="1" stroke="black" />
+
+  <!-- 沒有虛線偏移 -->
+  <line x1="0" y1="3" x2="30" y2="3" stroke="black" stroke-dasharray="3 1" />
+
+  <!--
+  虛線陣列的計算起點被拉了 3 個使用者單位
+  -->
+  <line
+    x1="0"
+    y1="5"
+    x2="30"
+    y2="5"
+    stroke="black"
+    stroke-dasharray="3 1"
+    stroke-dashoffset="3" />
+
+  <!--
+  虛線陣列的計算起點被推了 3 個使用者單位
+  -->
+  <line
+    x1="0"
+    y1="7"
+    x2="30"
+    y2="7"
+    stroke="black"
+    stroke-dasharray="3 1"
+    stroke-dashoffset="-3" />
+
+  <!--
+  虛線陣列的計算起點被拉了 1 個使用者單位，
+  最終算繪結果與前一個範例相同
+  -->
+  <line
+    x1="0"
+    y1="9"
+    x2="30"
+    y2="9"
+    stroke="black"
+    stroke-dasharray="3 1"
+    stroke-dashoffset="1" />
+
+  <!--
+  下方的紅線突顯了每條線的虛線陣列偏移量
+  -->
+  <path d="M0,5 h-3 M0,7 h3 M0,9 h-1" stroke="rgb(255 0 0 / 50%)" />
+</svg>
+```
+
+{{EmbedLiveSample("範例", '100%', 200)}}
+
+## 使用說明
+
+<table class="properties">
   <tbody>
     <tr>
-      <th scope="row">類別</th>
-      <td>Presentation attribute</td>
-    </tr>
-    <tr>
-      <th scope="row">可用值</th>
+      <th scope="row">值</th>
       <td>
-        <a href="/en/SVG/Content_type#Percentage">&#x3C;percentage></a> |
-        <a href="/en/SVG/Content_type#Length">&#x3C;length></a> | inherit
-      </td>
-    </tr>
-    <tr>
-      <th scope="row">初始值</th>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th scope="row">可動畫化</th>
-      <td>是</td>
-    </tr>
-    <tr>
-      <th scope="row">規範文件</th>
-      <td>
-        <a
-          href="http://www.w3.org/TR/SVG11/painting.html#StrokeDashoffsetProperty"
-          >SVG 1.1 (2nd Edition)</a
+        <strong
+          ><a href="/zh-TW/docs/Web/SVG/Content_type#percentage"
+            ><percentage></a
+          ></strong
+        >
+        |
+        <strong
+          ><a href="/zh-TW/docs/Web/SVG/Content_type#length"
+            ><length></a
+          ></strong
         >
       </td>
+    </tr>
+    <tr>
+      <th scope="row">預設值</th>
+      <td><code>0</code></td>
+    </tr>
+    <tr>
+      <th scope="row">可動畫</th>
+      <td>是</td>
     </tr>
   </tbody>
 </table>
 
-## 範例
-
-### HTML 內容
-
-```html
-<svg
-  width="200"
-  height="200"
-  viewBox="0 0 200 200"
-  version="1.1"
-  xmlns="http://www.w3.org/2000/svg">
-  <line
-    stroke-dashoffset="0"
-    stroke-dasharray="20"
-    x1="0"
-    y1="10"
-    x2="200"
-    y2="10" />
-  <line
-    stroke-dashoffset="10"
-    stroke-dasharray="20"
-    x1="0"
-    y1="20"
-    x2="200"
-    y2="20" />
-  <line
-    stroke-dashoffset="20"
-    stroke-dasharray="20"
-    x1="0"
-    y1="30"
-    x2="200"
-    y2="30" />
-  <line
-    stroke-dashoffset="50%"
-    stroke-dasharray="20"
-    x1="0"
-    y1="40"
-    x2="200"
-    y2="40" />
-  <line
-    stroke-dashoffset="25%"
-    stroke-dasharray="20"
-    x1="0"
-    y1="50"
-    x2="200"
-    y2="50" />
-  <line
-    stroke-dashoffset="0%"
-    stroke-dasharray="20"
-    x1="0"
-    y1="60"
-    x2="200"
-    y2="60" />
-</svg>
-```
-
-### CSS 內容
-
-```css
-line {
-  stroke: #51bba7;
-  stroke-width: 2;
-}
-```
-
-### 結果
-
-{{ EmbedLiveSample('範例') }}
-
-## 適用元素
-
-以下元素可以使用 `stroke-dashoffset` 屬性
-
-- [Shape elements](/zh-TW/docs/Web/SVG/Reference/Element#shape) »
-- [Text content elements](/zh-TW/docs/Web/SVG/Reference/Element#textcontent) »
+偏移量通常以使用者單位表示，並相對於 {{SVGAttr('pathLength')}} 解析，但如果使用 [\<percentage>](/zh-TW/docs/Web/SVG/Content_type#percentage)，該值將解析為當前視口的百分比。
 
 ## 規範
 
@@ -127,3 +127,7 @@ line {
 ## 瀏覽器相容性
 
 {{Compat}}
+
+## 參見
+
+- CSS {{cssxref("stroke-dashoffset")}} 屬性
