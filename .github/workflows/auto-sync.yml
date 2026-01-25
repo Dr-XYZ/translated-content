@@ -17,7 +17,7 @@ jobs:
 
       - name: Add upstream
         run: |
-          git remote add upstream https://github.com/UPSTREAM_OWNER/UPSTREAM_REPO.git
+          git remote add upstream https://github.com/mdn/translated-content.git
           git fetch upstream
 
       - name: Sync upstream changes
