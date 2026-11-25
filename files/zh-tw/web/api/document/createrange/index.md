@@ -1,13 +1,14 @@
 ---
 title: Document：createRange() 方法
+short-title: createRange()
 slug: Web/API/Document/createRange
 l10n:
-  sourceCommit: 73016bea54a98f70dc2aaad0724d0d421ef9839c
+  sourceCommit: 1abe075be40cd938aa9131a42b4e03b21b78627c
 ---
 
 {{APIRef("DOM")}}
 
-**`Document.createRange()`** 方法會回傳一個新的 {{domxref("Range")}} 物件。
+**`Document.createRange()`** 方法會回傳一個新的 {{domxref("Range")}} 物件，其起點與終點皆位於呼叫此方法的 {{domxref("Document")}} 物件中偏移量為 0 的位置。
 
 ## 語法
 
