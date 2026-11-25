@@ -1,8 +1,9 @@
 ---
 title: Document：documentElement 屬性
+short-title: documentElement
 slug: Web/API/Document/documentElement
 l10n:
-  sourceCommit: 376da6eeed886361367923824132ccfc5ac1177d
+  sourceCommit: a4fcf79b60471db6f148fa4ba36f2cdeafbbeb70
 ---
 
 {{ApiRef("DOM")}}
