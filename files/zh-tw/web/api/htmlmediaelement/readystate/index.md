@@ -3,12 +3,12 @@ title: HTMLMediaElement：readyState 屬性
 short-title: readyState
 slug: Web/API/HTMLMediaElement/readyState
 l10n:
-  sourceCommit: e932acf254c5dd06e26798b9d8fe01ce8dab1fb7
+  sourceCommit: ae380dd2b211ab497e064d4074ff81e71cb91a00
 ---
 
 {{APIRef("HTML DOM")}}
 
-**`HTMLMediaElement.readyState`** 屬性表示媒體的就緒狀態。
+{{domxref("HTMLMediaElement")}} 介面的 **`readyState`** 唯讀屬性表示媒體的就緒狀態。
 
 ## 值
 
