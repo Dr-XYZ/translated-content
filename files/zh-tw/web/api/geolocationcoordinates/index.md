@@ -2,7 +2,7 @@
 title: GeolocationCoordinates
 slug: Web/API/GeolocationCoordinates
 l10n:
-  sourceCommit: 68c5b12ed1e9a55b86cd32e242216f1b88a8ccc7
+  sourceCommit: 6bb81a788ff71f726e32d16757c99d5c45a7edf9
 ---
 
 {{securecontext_header}}{{APIRef("Geolocation API")}}
@@ -33,7 +33,7 @@ _`GeolocationCoordinates` 介面不繼承任何屬性。_
 _`GeolocationCoordinates` 介面不繼承任何方法。_
 
 - {{domxref("GeolocationCoordinates.toJSON()")}}
-  - : 返回以 JSON 表示的 `GeolocationCoordinates` 物件，並啟用使用 {{jsxref("JSON.stringify()")}} 進行序列化。
+  - : 傳回表示 `GeolocationCoordinates` 物件、可序列化為 JSON 的普通物件。此方法會由 {{jsxref("JSON.stringify()")}} 自動呼叫。
 
 ## 規範
 
