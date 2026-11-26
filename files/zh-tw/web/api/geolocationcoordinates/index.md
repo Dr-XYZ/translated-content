@@ -33,7 +33,7 @@ _`GeolocationCoordinates` 介面不繼承任何屬性。_
 _`GeolocationCoordinates` 介面不繼承任何方法。_
 
 - {{domxref("GeolocationCoordinates.toJSON()")}}
-  - : 傳回表示 `GeolocationCoordinates` 物件、可序列化為 JSON 的普通物件。此方法會由 {{jsxref("JSON.stringify()")}} 自動呼叫。
+  - : 返回表示 `GeolocationCoordinates` 物件、可序列化為 JSON 的普通物件。此方法會由 {{jsxref("JSON.stringify()")}} 自動呼叫。
 
 ## 規範
 
